@@ -1,7 +1,6 @@
-package com.dkanejs.maven.plugins;
+package com.dkanejs.maven.plugins.docker.compose;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -15,26 +14,34 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
+
+    protected String composeFilePath;
+
+    protected List<String> command;
+
+    @Parameter(defaultValue = "true", property = "dockerCompose.detached")
+    protected boolean detachedMode;
 
     @Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
     private String composeFile;
 
-    @Parameter(defaultValue = "true", property = "dockerCompose.detached")
-    private boolean detachedMode;
+    AbstractDockerComposeMojo() {
+        this.composeFilePath = Paths.get(this.composeFile).toString();
 
-    void execute(Command command) throws MojoExecutionException, MojoFailureException {
+        getLog().info("Dockerfile: " + composeFilePath);
 
         List<String> cmd = new ArrayList<>();
         cmd.add("docker-compose");
-        cmd.add("-f");
-        cmd.add(composeFile());
-        cmd.add(command.name().toLowerCase());
+        command.add("docker-compose");
+        command.add("-f");
+        command.add(composeFilePath);
 
-        if (detachedMode && command == Command.UP)
-            cmd.add("-d");
+        this.command = cmd;
+    }
+
+    void execute(List<String> cmd) throws MojoExecutionException, MojoFailureException {
 
         ProcessBuilder pb = new ProcessBuilder(cmd);
 
@@ -58,11 +65,5 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
         } catch (Exception e) {
             throw new MojoExecutionException(e.getMessage());
         }
-    }
-
-    private String composeFile() {
-        String path = Paths.get(getComposeFile()).toString();
-        getLog().info("Dockerfile: " + path);
-        return path;
     }
 }

@@ -1,4 +1,4 @@
-package com.dkanejs.maven.plugins;
+package com.dkanejs.maven.plugins.docker.compose;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -8,6 +8,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        super.execute(Command.DOWN);
+
+        command.add(Command.DOWN.getValue());
+
+        super.execute(command);
     }
 }
