@@ -17,53 +17,53 @@ import java.util.List;
 @Getter
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
-    protected String composeFilePath;
+	protected String composeFilePath;
 
-    protected List<String> command;
+	protected List<String> command;
 
-    @Parameter(defaultValue = "true", property = "dockerCompose.detached")
-    protected boolean detachedMode;
+	@Parameter(defaultValue = "true", property = "dockerCompose.detached")
+	protected boolean detachedMode;
 
-    @Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
-    private String composeFile;
+	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
+	private String composeFile;
 
-    AbstractDockerComposeMojo() {
-        this.composeFilePath = Paths.get(this.composeFile).toString();
+	AbstractDockerComposeMojo() {
+		this.composeFilePath = Paths.get(this.composeFile).toString();
 
-        getLog().info("Dockerfile: " + composeFilePath);
+		getLog().info("Dockerfile: " + composeFilePath);
 
-        List<String> cmd = new ArrayList<>();
-        cmd.add("docker-compose");
-        command.add("docker-compose");
-        command.add("-f");
-        command.add(composeFilePath);
+		List<String> cmd = new ArrayList<>();
+		cmd.add("docker-compose");
+		command.add("docker-compose");
+		command.add("-f");
+		command.add(composeFilePath);
 
-        this.command = cmd;
-    }
+		this.command = cmd;
+	}
 
-    void execute(List<String> cmd) throws MojoExecutionException, MojoFailureException {
+	void execute(List<String> cmd) throws MojoExecutionException, MojoFailureException {
 
-        ProcessBuilder pb = new ProcessBuilder(cmd);
+		ProcessBuilder pb = new ProcessBuilder(cmd);
 
-        getLog().info("Running: " + StringUtils.join(cmd.iterator(), " "));
+		getLog().info("Running: " + StringUtils.join(cmd.iterator(), " "));
 
-        try {
-            Process p = pb.start();
+		try {
+			Process p = pb.start();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            String line;
+			String line;
 
-            while ((line = br.readLine()) != null)
-                getLog().info(line);
+			while ((line = br.readLine()) != null)
+				getLog().info(line);
 
-            int ec = p.waitFor();
+			int ec = p.waitFor();
 
-            if (ec != 0)
-                throw new DockerComposeException(IOUtil.toString(p.getErrorStream()));
+			if (ec != 0)
+				throw new DockerComposeException(IOUtil.toString(p.getErrorStream()));
 
-        } catch (Exception e) {
-            throw new MojoExecutionException(e.getMessage());
-        }
-    }
+		} catch (Exception e) {
+			throw new MojoExecutionException(e.getMessage());
+		}
+	}
 }

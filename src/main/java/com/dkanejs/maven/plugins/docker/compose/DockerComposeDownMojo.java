@@ -7,10 +7,10 @@ import org.apache.maven.plugins.annotations.Mojo;
 @Mojo(name = "down", threadSafe = true)
 public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 
-    public void execute() throws MojoExecutionException, MojoFailureException {
+	public void execute() throws MojoExecutionException, MojoFailureException {
 
-        command.add(Command.DOWN.getValue());
+		command.add(Command.DOWN.getValue());
 
-        super.execute(command);
-    }
+		super.execute(command);
+	}
 }
