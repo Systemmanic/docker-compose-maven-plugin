@@ -21,6 +21,9 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 	protected List<String> command;
 
+	@Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
+	protected boolean removeVolumes;
+
 	@Parameter(defaultValue = "true", property = "dockerCompose.detached")
 	protected boolean detachedMode;
 

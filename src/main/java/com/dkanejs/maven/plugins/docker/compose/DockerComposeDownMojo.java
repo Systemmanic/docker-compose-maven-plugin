@@ -11,6 +11,9 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 
 		command.add(Command.DOWN.getValue());
 
+		if (removeVolumes)
+			command.add("-v");
+
 		super.execute(command);
 	}
 }
