@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+  test:
+    image: busybox
+    container_name: mpdc-it-detatched
+    command: echo -e Docker Compose has run successfully

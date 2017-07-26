@@ -17,34 +17,27 @@ import java.util.List;
 @Getter
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
-	protected String composeFilePath;
-
-	protected List<String> command;
-
 	@Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
 	protected boolean removeVolumes;
 
-	@Parameter(defaultValue = "true", property = "dockerCompose.detached")
+	@Parameter(defaultValue = "false", property = "dockerCompose.detached")
 	protected boolean detachedMode;
 
 	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
 	private String composeFile;
 
-	AbstractDockerComposeMojo() {
-		this.composeFilePath = Paths.get(this.composeFile).toString();
+	void execute(List<String> args) throws MojoExecutionException, MojoFailureException {
+
+		String composeFilePath = Paths.get(this.composeFile).toString();
 
 		getLog().info("Dockerfile: " + composeFilePath);
 
 		List<String> cmd = new ArrayList<>();
 		cmd.add("docker-compose");
-		command.add("docker-compose");
-		command.add("-f");
-		command.add(composeFilePath);
-
-		this.command = cmd;
-	}
-
-	void execute(List<String> cmd) throws MojoExecutionException, MojoFailureException {
+		cmd.add("-f");
+		cmd.add(composeFilePath);
+		cmd.addAll(args);
+		cmd.add("--no-color");
 
 		ProcessBuilder pb = new ProcessBuilder(cmd);
 
@@ -67,6 +60,17 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 		} catch (Exception e) {
 			throw new MojoExecutionException(e.getMessage());
+		}
+	}
+
+	enum Command {
+		UP("up"), DOWN("down");
+
+		@Getter
+		private String value;
+
+		Command(String value) {
+			this.value = value;
 		}
 	}
 }

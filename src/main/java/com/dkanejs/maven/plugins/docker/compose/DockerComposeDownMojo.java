@@ -4,16 +4,23 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mojo(name = "down", threadSafe = true)
 public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
-		command.add(Command.DOWN.getValue());
+		List<String> args = new ArrayList<>();
 
-		if (removeVolumes)
-			command.add("-v");
+		args.add(Command.DOWN.getValue());
 
-		super.execute(command);
+		if (removeVolumes) {
+			getLog().info("Removing volumes");
+			args.add("-v");
+		}
+
+		super.execute(args);
 	}
 }
