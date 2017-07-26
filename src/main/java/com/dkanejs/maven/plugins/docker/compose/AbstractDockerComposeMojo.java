@@ -37,7 +37,6 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		cmd.add("-f");
 		cmd.add(composeFilePath);
 		cmd.addAll(args);
-		cmd.add("--no-color");
 
 		ProcessBuilder pb = new ProcessBuilder(cmd);
 

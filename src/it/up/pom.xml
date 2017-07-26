@@ -7,7 +7,7 @@
     <artifactId>up</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<description>A simple IT verifying the basic use case.</description>
+    <description>Verify "docker-compose up" runs.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,7 +21,7 @@
 				<version>@project.version@</version>
 				<executions>
 					<execution>
-						<id>default</id>
+                        <id>up</id>
                         <phase>verify</phase>
 						<goals>
 							<goal>up</goal>

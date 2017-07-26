@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.dkanejs.maven.plugins.it</groupId>
-    <artifactId>detatched</artifactId>
+    <artifactId>down</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <description>Verify "docker-compose up -d" runs in detached mode.</description>
+    <description>Verify "docker-compose down" runs.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,7 +21,7 @@
                 <version>@project.version@</version>
                 <executions>
                     <execution>
-                        <id>default</id>
+                        <id>up</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>up</goal>
@@ -29,6 +29,16 @@
                         <configuration>
                             <composeFile>${project.basedir}/docker-compose.yml</composeFile>
                             <detachedMode>true</detachedMode>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>down</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>down</goal>
+                        </goals>
+                        <configuration>
+                            <composeFile>${project.basedir}/docker-compose.yml</composeFile>
                         </configuration>
                     </execution>
                 </executions>
