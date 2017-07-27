@@ -4,16 +4,24 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mojo(name = "up", threadSafe = true)
 public class DockerComposeUpMojo extends AbstractDockerComposeMojo {
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
-		command.add(Command.UP.getValue());
+		List<String> args = new ArrayList<>();
+		args.add(Command.UP.getValue());
 
-		if (detachedMode)
-			command.add("-d");
+		if (detachedMode) {
+			getLog().info("Running in detached mode");
+			args.add("-d");
+		}
 
-		super.execute(command);
+		args.add("--no-color");
+
+		super.execute(args);
 	}
 }

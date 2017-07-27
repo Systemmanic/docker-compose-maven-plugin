@@ -1,2 +1,6 @@
 language: java
-script: mvn -B clean test
+
+services:
+  - docker
+
+script: mvn -B -P integration-tests clean test verify
