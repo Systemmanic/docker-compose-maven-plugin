@@ -40,7 +40,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 		ProcessBuilder pb = new ProcessBuilder(cmd);
 
-		getLog().info("Running: " + StringUtils.join(cmd.iterator(), " "));
+		getLog().info("Running: " + StringUtils.join(pb.command().iterator(), " "));
 
 		try {
 			Process p = pb.start();

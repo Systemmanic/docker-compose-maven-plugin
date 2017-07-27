@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  test:
+    image: busybox
+    container_name: mpdc-it-down
+    volumes:
+     - test-volume:/opt/test
+    command: sleep 600
+
+volumes:
+  test-volume:
