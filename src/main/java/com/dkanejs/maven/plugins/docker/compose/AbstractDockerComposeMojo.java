@@ -17,12 +17,21 @@ import java.util.List;
 @Getter
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
+	/**
+	 * Remove volumes on down
+	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
 	protected boolean removeVolumes;
 
+	/**
+	 * Run in detached mode
+	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.detached")
 	protected boolean detachedMode;
 
+	/**
+	 * The location of the Compose file
+	 */
 	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
 	private String composeFile;
 
