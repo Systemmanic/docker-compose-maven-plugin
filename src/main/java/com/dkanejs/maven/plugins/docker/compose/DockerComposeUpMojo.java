@@ -7,6 +7,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * docker-compose up
+ */
 @Mojo(name = "up", threadSafe = true)
 public class DockerComposeUpMojo extends AbstractDockerComposeMojo {
 
