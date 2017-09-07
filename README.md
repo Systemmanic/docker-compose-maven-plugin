@@ -65,7 +65,7 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
-##Configuration
+## Configuration
 ### Default
 Below will allow use of the plugin from the `mvn` command line: 
 
