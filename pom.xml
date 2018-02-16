@@ -124,6 +124,7 @@
                                 <pomInclude>up-skip/pom.xml</pomInclude>
                                 <pomInclude>up-verbose/pom.xml</pomInclude>
                                 <pomInclude>up-api-version/pom.xml</pomInclude>
+                                <pomInclude>up-down-host/pom.xml</pomInclude>
                             </pomIncludes>
                             <postBuildHookScript>verify</postBuildHookScript>
                             <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>

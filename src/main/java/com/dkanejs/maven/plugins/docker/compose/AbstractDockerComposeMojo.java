@@ -18,6 +18,12 @@ import java.util.Map;
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 	/**
+	 * Docker host to interact with
+	 */
+	@Parameter(property = "dockerCompose.host")
+	String host;
+
+	/**
 	 * Remove volumes on down
 	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
@@ -102,6 +108,11 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 		if (verbose) {
 			cmd.add("--verbose");
+		}
+
+		if (host != null) {
+			cmd.add("-H");
+			cmd.add(host);
 		}
 
 		cmd.addAll(args);
