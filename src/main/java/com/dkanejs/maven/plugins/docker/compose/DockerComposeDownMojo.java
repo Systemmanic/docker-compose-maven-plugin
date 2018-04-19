@@ -26,6 +26,12 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 			args.add("-v");
 		}
 
+		if (removeImages) {
+			getLog().info("Removing images");
+			args.add("--rmi");
+			args.add("all");
+		}
+
 		super.execute(args);
 	}
 }
