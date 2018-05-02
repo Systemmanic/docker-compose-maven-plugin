@@ -28,6 +28,11 @@ public class DockerComposeUpMojo extends AbstractDockerComposeMojo {
 			args.add("-d");
 		}
 
+		if (build) {
+			getLog().info("Building images");
+			args.add("--build");
+		}
+
 		args.add("--no-color");
 
 		super.execute(args);
