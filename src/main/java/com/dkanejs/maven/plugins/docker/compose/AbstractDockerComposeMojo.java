@@ -1,6 +1,5 @@
 package com.dkanejs.maven.plugins.docker.compose;
 
-import lombok.Getter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -14,20 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Getter
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
-
-	/**
-	 * Docker host to interact with
-	 */
-	@Parameter(property = "dockerCompose.host")
-	String host;
-
-	/**
-	 * Remove volumes on down
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
-	boolean removeVolumes;
 
 	/**
 	 * Run in detached mode
@@ -36,22 +22,10 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	protected boolean detachedMode;
 
 	/**
-	 * The location of the Compose file
+	 * Remove volumes on down
 	 */
-	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
-	private String composeFile;
-
-	/**
-	 * The Compose Api Version
-	 */
-	@Parameter(property = "dockerCompose.apiVersion")
-	private ComposeApiVersion apiVersion;
-
-	/**
-	 * Verbose
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.verbose")
-	private boolean verbose;
+	@Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
+	boolean removeVolumes;
 
 	/**
 	 * Skip
@@ -70,6 +44,30 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.removeOrphans")
 	boolean removeOrphans;
+
+	/**
+	 * Docker host to interact with
+	 */
+	@Parameter(property = "dockerCompose.host")
+	private String host;
+
+	/**
+	 * The location of the Compose file
+	 */
+	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
+	private String composeFile;
+
+	/**
+	 * The Compose Api Version
+	 */
+	@Parameter(property = "dockerCompose.apiVersion")
+	private String apiVersion;
+
+	/**
+	 * Verbose
+	 */
+	@Parameter(defaultValue = "false", property = "dockerCompose.verbose")
+	private boolean verbose;
 
 	void execute(List<String> args) throws MojoExecutionException {
 
@@ -123,19 +121,22 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		}
 
 		if (host != null) {
+			getLog().info("Host: " + composeFilePath);
 			cmd.add("-H");
 			cmd.add(host);
 		}
 
 		cmd.addAll(args);
+
 		return cmd;
 	}
 
 	private void setEnvironment(ProcessBuilder processBuilder) {
 		Map<String, String> environment = processBuilder.environment();
+
 		if (apiVersion != null) {
-			getLog().info("COMPOSE_API_VERSION: " + apiVersion.version);
-			environment.put("COMPOSE_API_VERSION", apiVersion.version);
+			getLog().info("COMPOSE_API_VERSION: " + apiVersion);
+			environment.put("COMPOSE_API_VERSION", apiVersion);
 		}
 	}
 
@@ -143,27 +144,14 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		UP("up"),
 		DOWN("down");
 
-		@SuppressWarnings("unused")
-		@Getter
 		private String value;
 
 		Command(String value) {
 			this.value = value;
 		}
-	}
 
-	@SuppressWarnings("unused")
-	enum ComposeApiVersion {
-		V1_30("1.30"),
-		V1_25("1.25"),
-		V1_24("1.24"),
-		V1_22("1.22"),
-		V1_21("1.21");
-
-		private String version;
-
-		ComposeApiVersion(String version) {
-			this.version = version;
+		public String getValue() {
+			return value;
 		}
 	}
 }
