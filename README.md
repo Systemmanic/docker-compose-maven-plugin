@@ -68,7 +68,7 @@ This can be changed in the configuration section of the plugin:
 
 ```
 <configuration>
-   	<apiVersion>V1_22</apiVersion>
+   	<apiVersion>1.22</apiVersion>
 </configuration>
 ```
 

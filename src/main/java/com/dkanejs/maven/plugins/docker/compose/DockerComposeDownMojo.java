@@ -12,7 +12,7 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 
 	public void execute() throws MojoExecutionException {
 
-		if ( skip ){
+		if (skip) {
 			getLog().info("Skipping execution");
 			return;
 		}
