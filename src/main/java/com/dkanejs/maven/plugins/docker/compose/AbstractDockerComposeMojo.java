@@ -59,6 +59,18 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	@Parameter(defaultValue = "false", property = "dockerCompose.skip")
 	boolean skip;
 
+	/**
+	 * Build images before starting containers
+	 */
+	@Parameter(defaultValue = "false", property = "dockerCompose.build")
+	boolean build;
+
+	/**
+	 * Remove containers for services not defined in the Compose file
+	 */
+	@Parameter(defaultValue = "false", property = "dockerCompose.removeOrphans")
+	boolean removeOrphans;
+
 	void execute(List<String> args) throws MojoExecutionException {
 
 		ProcessBuilder pb = buildProcess(args);
