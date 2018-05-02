@@ -1,6 +1,5 @@
 package com.dkanejs.maven.plugins.docker.compose;
 
-import lombok.Getter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Getter
+
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 	/**
@@ -144,11 +143,14 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		DOWN("down");
 
 		@SuppressWarnings("unused")
-		@Getter
 		private String value;
 
 		Command(String value) {
 			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
 		}
 	}
 
