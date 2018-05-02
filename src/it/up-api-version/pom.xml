@@ -30,7 +30,7 @@
                             <composeFile>${project.basedir}/docker-compose.yml</composeFile>
                             <detachedMode>false</detachedMode>
 							<verbose>true</verbose>
-							<apiVersion>V1_22</apiVersion>
+							<apiVersion>1.22</apiVersion>
 						</configuration>
 					</execution>
 				</executions>
