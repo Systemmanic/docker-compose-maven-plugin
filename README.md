@@ -96,10 +96,32 @@ This can be changed in the configuration section of the plugin:
     <host>unix:///var/run/docker.sock</host>
 </configuration>
 ```
+#### build
+`build` - Build images before starting containers
+
+The plugin will not build images by default.
+
+This can be changed in the configuration section of the plugin:
+```
+<configuration>
+    <build>true</build>
+</configuration>
+```
+#### removeOrphans
+`removeOrphans` - Remove containers for services not defined in the Compose file
+
+The plugin will not remove orphans by default.
+
+This can be changed in the configuration section of the plugin:
+```
+<configuration>
+    <removeOrphans>true</removeOrphans>
+</configuration>
+```
 
 ## Configuration
 ### Default
-Below will allow use of the plugin from the `mvn` command line: 
+Below will allow use of the plugin from the `mvn` command line:
 ```
 <build>
     <plugins>
@@ -152,5 +174,5 @@ Below has customised the location of the `docker-compose.yml` file and has two e
 ```
 
 This will run the following as part of the `verify` phase:
- 1. `docker-compose up -d` using a `docker-compose.yml` file in a custom location 
+ 1. `docker-compose up -d` using a `docker-compose.yml` file in a custom location
  2. `docker-compose down -v` using a `docker-compose.yml` file in a custom location
