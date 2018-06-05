@@ -7,11 +7,14 @@ import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
@@ -70,6 +73,12 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	@Parameter(defaultValue = "false", property = "dockerCompose.removeOrphans")
 	boolean removeOrphans;
 
+	/**
+	 * Properties file from which docker environment variables are set
+	 */
+	@Parameter(property = "dockerCompose.envFile")
+	private String envFile;
+
 	void execute(List<String> args) throws MojoExecutionException {
 
 		ProcessBuilder pb = buildProcess(args);
@@ -96,7 +105,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		}
 	}
 
-	private ProcessBuilder buildProcess(List<String> args) {
+	private ProcessBuilder buildProcess(List<String> args) throws MojoExecutionException {
 
 		List<String> command = buildCmd(args);
 
@@ -130,11 +139,20 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		return cmd;
 	}
 
-	private void setEnvironment(ProcessBuilder processBuilder) {
+	private void setEnvironment(ProcessBuilder processBuilder) throws MojoExecutionException {
 		Map<String, String> environment = processBuilder.environment();
 		if (apiVersion != null) {
 			getLog().info("COMPOSE_API_VERSION: " + apiVersion.version);
 			environment.put("COMPOSE_API_VERSION", apiVersion.version);
+		}
+		if (envFile != null) {
+			final Properties properties = new Properties();
+			try {
+				properties.load(new FileInputStream(envFile));
+				properties.forEach((k, v) -> environment.put(k.toString(), v.toString()));
+			} catch (final IOException e) {
+				throw new MojoExecutionException(e.getMessage());
+			}
 		}
 	}
 
