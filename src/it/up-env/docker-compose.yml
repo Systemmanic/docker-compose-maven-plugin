@@ -1,0 +1,8 @@
+version: '3.2'
+services:
+  test:
+    image: busybox
+    container_name: mpdc-it-up-env
+    environment:
+      message: "${message}"
+    command: echo -e Docker Compose has run successfully with message ${message}
