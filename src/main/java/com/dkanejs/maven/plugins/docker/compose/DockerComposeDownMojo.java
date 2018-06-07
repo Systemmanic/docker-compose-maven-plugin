@@ -12,7 +12,7 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 
 	public void execute() throws MojoExecutionException {
 
-		if ( skip ){
+		if (skip) {
 			getLog().info("Skipping execution");
 			return;
 		}
@@ -24,6 +24,13 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 		if (removeVolumes) {
 			getLog().info("Removing volumes");
 			args.add("-v");
+		}
+
+
+		if (removeImages) {
+			getLog().info("Removing images");
+			args.add("--rmi");
+			args.add("all");
 		}
 
 		if (removeOrphans) {

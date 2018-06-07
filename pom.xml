@@ -115,6 +115,7 @@
                                 <pomInclude>down/pom.xml</pomInclude>
                                 <pomInclude>down-remove-volumes/pom.xml</pomInclude>
                                 <pomInclude>down-remove-orphans/pom.xml</pomInclude>
+                                <pomInclude>down-remove-images/pom.xml</pomInclude>
                                 <pomInclude>up/pom.xml</pomInclude>
                                 <pomInclude>up-env/pom.xml</pomInclude>
                                 <pomInclude>up-build/pom.xml</pomInclude>

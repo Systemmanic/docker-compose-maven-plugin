@@ -32,10 +32,22 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	boolean removeVolumes;
 
 	/**
+	 * Remove images on down
+	 */
+	@Parameter(defaultValue = "false", property = "dockerCompose.removeImages")
+	boolean removeImages;
+
+	/**
 	 * Run in detached mode
 	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.detached")
 	protected boolean detachedMode;
+
+	/**
+	 * Build containers before run
+	 */
+	@Parameter(defaultValue = "false", property = "dockerCompose.build")
+	boolean build;
 
 	/**
 	 * The location of the Compose file
@@ -60,12 +72,6 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.skip")
 	boolean skip;
-
-	/**
-	 * Build images before starting containers
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.build")
-	boolean build;
 
 	/**
 	 * Remove containers for services not defined in the Compose file
