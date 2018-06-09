@@ -59,7 +59,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	 * The Compose Api Version
 	 */
 	@Parameter(property = "dockerCompose.apiVersion")
-	private ComposeApiVersion apiVersion;
+	private String apiVersion;
 
 	/**
 	 * Verbose
@@ -132,9 +132,8 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		cmd.add("-f");
 		cmd.add(composeFilePath);
 
-		if (verbose) {
+		if (verbose)
 			cmd.add("--verbose");
-		}
 
 		if (host != null) {
 			cmd.add("-H");
@@ -142,17 +141,21 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		}
 
 		cmd.addAll(args);
+
 		return cmd;
 	}
 
 	private void setEnvironment(ProcessBuilder processBuilder) throws MojoExecutionException {
 		Map<String, String> environment = processBuilder.environment();
+
 		if (apiVersion != null) {
-			getLog().info("COMPOSE_API_VERSION: " + apiVersion.version);
-			environment.put("COMPOSE_API_VERSION", apiVersion.version);
+			getLog().info("COMPOSE_API_VERSION: " + apiVersion);
+			environment.put("COMPOSE_API_VERSION", apiVersion);
 		}
+
 		if (envFile != null) {
 			final Properties properties = new Properties();
+
 			try {
 				properties.load(new FileInputStream(envFile));
 				properties.forEach((k, v) -> environment.put(k.toString(), v.toString()));
@@ -175,21 +178,6 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 		public String getValue() {
 			return value;
-		}
-	}
-
-	@SuppressWarnings("unused")
-	enum ComposeApiVersion {
-		V1_30("1.30"),
-		V1_25("1.25"),
-		V1_24("1.24"),
-		V1_22("1.22"),
-		V1_21("1.21");
-
-		private String version;
-
-		ComposeApiVersion(String version) {
-			this.version = version;
 		}
 	}
 }
