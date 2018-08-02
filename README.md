@@ -139,6 +139,17 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
+Additional option `removeImagesType` allows to specify `type` parameter of `--rmi` docker compose flag. 
+`all` is the default value. 
+`local` is the second supported type.
+
+```
+<configuration>
+    <removeImages>true</removeImages>
+    <removeImagesType>local</removeImagesType>
+</configuration>
+```
+
 ## Configuration
 ### Default
 Below will allow use of the plugin from the `mvn` command line:
