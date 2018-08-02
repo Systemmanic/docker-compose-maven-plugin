@@ -38,6 +38,12 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	boolean removeImages;
 
 	/**
+	 * 'type' of images to remove on down
+	 */
+	@Parameter(defaultValue = "all", property = "dockerCompose.removeImages.type")
+	String removeImagesType;
+
+	/**
 	 * Run in detached mode
 	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.detached")

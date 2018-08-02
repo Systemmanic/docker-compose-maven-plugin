@@ -30,7 +30,7 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 		if (removeImages) {
 			getLog().info("Removing images");
 			args.add("--rmi");
-			args.add("all");
+			args.add(removeImagesType);
 		}
 
 		if (removeOrphans) {
