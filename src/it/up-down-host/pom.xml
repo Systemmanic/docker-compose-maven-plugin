@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.dkanejs.maven.plugins.it</groupId>
-    <artifactId>down</artifactId>
+    <artifactId>up-down-host</artifactId>
     <version>1.0</version>
 
     <description>Verify "docker-compose down" runs.</description>
