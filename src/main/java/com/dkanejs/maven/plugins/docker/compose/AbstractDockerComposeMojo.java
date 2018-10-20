@@ -1,5 +1,6 @@
 package com.dkanejs.maven.plugins.docker.compose;
 
+import java.nio.file.Path;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -56,10 +57,16 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	boolean build;
 
 	/**
-	 * The location of the Compose file
+	 * The location of the Compose file. Value of this property is ignored if {@link #composeFiles} is set and non-empty.
 	 */
 	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
 	private String composeFile;
+
+	/**
+	 * Location of the Compose files. If this property is set and non-empty then {@link #composeFile} is ignored.
+	 */
+	@Parameter
+	private List<String> composeFiles;
 
 	/**
 	 * The Compose Api Version
@@ -129,14 +136,26 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	}
 
 	private List<String> buildCmd(List<String> args) {
-		String composeFilePath = Paths.get(this.composeFile).toString();
+		List<String> composeFilePaths = new ArrayList<>();
 
-		getLog().info("Dockerfile: " + composeFilePath);
+		if (composeFiles != null && !composeFiles.isEmpty()) {
+			composeFiles.stream()
+				.map(Paths::get)
+				.map(Path::toString)
+				.forEachOrdered(composeFilePaths::add);
+		} else {
+			composeFilePaths.add(Paths.get(this.composeFile).toString());
+		}
+
+		getLog().info("Dockerfiles: " + String.join(", ", composeFilePaths));
 
 		List<String> cmd = new ArrayList<>();
 		cmd.add("docker-compose");
-		cmd.add("-f");
-		cmd.add(composeFilePath);
+
+		composeFilePaths.forEach(composeFilePath -> {
+			cmd.add("-f");
+			cmd.add(composeFilePath);
+		});
 
 		if (verbose)
 			cmd.add("--verbose");

@@ -38,6 +38,21 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
+If the property `composeFiles` which allows multiple compose files is present then the value of this `composeFile` property is ignored.
+
+#### composeFiles
+`composeFiles` - Location of multiple compose files. If this property is present then the value of the `composeFile` is ignored.
+
+This can be configured in the configuration section of the plugin:
+```
+<configuration>
+    <composeFiles>
+        <composeFile>${project.basedir}/docker-compose.yml</composeFile>
+        <composeFile>${project.basedir}/docker-compose.override.yml</composeFile>
+    </composeFiles>
+</configuration>
+```
+
 #### detachedMode
 `detachedMode` - Run in detached mode
 
