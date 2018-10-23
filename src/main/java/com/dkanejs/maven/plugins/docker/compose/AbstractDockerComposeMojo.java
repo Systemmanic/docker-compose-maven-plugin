@@ -13,10 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
@@ -99,7 +96,19 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	@Parameter(property = "dockerCompose.envFile")
 	private String envFile;
 
-	void execute(List<String> args) throws MojoExecutionException {
+	/**
+	 * Project name
+	 */
+	@Parameter(property = "dockerCompose.projectName")
+	private String projectName;
+
+	void execute(Deque<String> args) throws MojoExecutionException {
+
+		if (projectName != null && !projectName.isEmpty()) {
+			getLog().info("Project name: " + projectName);
+			args.addFirst(projectName);
+			args.addFirst("--project");
+		}
 
 		ProcessBuilder pb = buildProcess(args);
 
@@ -125,7 +134,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		}
 	}
 
-	private ProcessBuilder buildProcess(List<String> args) throws MojoExecutionException {
+	private ProcessBuilder buildProcess(Collection<String> args) throws MojoExecutionException {
 
 		List<String> command = buildCmd(args);
 
@@ -136,7 +145,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		return pb;
 	}
 
-	private List<String> buildCmd(List<String> args) {
+	private List<String> buildCmd(Collection<String> args) {
 		List<String> composeFilePaths = new ArrayList<>();
 
 		if (composeFiles != null && !composeFiles.isEmpty()) {

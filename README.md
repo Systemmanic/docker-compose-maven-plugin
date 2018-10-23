@@ -113,6 +113,14 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
+#### projectName
+`projectName` - Specify the project name
+```
+<configuration>
+    <projectName>custom_name</projectName>
+</configuration>
+```
+
 #### build
 `build` - Build images before starting containers
 

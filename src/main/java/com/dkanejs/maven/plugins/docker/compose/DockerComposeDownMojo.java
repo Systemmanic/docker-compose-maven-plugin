@@ -4,6 +4,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -17,7 +19,7 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 			return;
 		}
 
-		List<String> args = new ArrayList<>();
+		Deque<String> args = new LinkedList<>();
 
 		args.add(Command.DOWN.getValue());
 
