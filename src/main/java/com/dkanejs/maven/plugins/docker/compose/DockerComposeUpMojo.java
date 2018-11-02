@@ -35,6 +35,10 @@ public class DockerComposeUpMojo extends AbstractDockerComposeMojo {
 
 		args.add("--no-color");
 
+		if (upAdditionalParameters != null) {
+			args.addAll(upAdditionalParameters);
+		}
+
 		super.execute(args);
 	}
 }

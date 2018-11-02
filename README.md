@@ -165,6 +165,12 @@ Additional option `removeImagesType` allows to specify `type` parameter of `--rm
 </configuration>
 ```
 
+#### upAdditionalParameters
+Additional parameters used when executing `docker-compose up` command.
+
+#### downAdditionalParameters
+Additional parameters used when executing `docker-compose down` command.
+
 ## Configuration
 ### Default
 Below will allow use of the plugin from the `mvn` command line:

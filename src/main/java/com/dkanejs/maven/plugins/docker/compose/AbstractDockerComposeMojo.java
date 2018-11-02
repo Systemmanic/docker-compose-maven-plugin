@@ -52,6 +52,18 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	protected boolean detachedMode;
 
 	/**
+	 * Additional parameters used when executing docker-compose up.
+	 */
+	@Parameter(property = "dockerCompose.upAdditionalParameters")
+	protected List<String> upAdditionalParameters;
+
+	/**
+	 * Additional parameters used when executing docker-compose down.
+	 */
+	@Parameter(property = "dockerCompose.downAdditionalParameters")
+	protected List<String> downAdditionalParameters;
+
+	/**
 	 * Build containers before run
 	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.build")
