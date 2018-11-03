@@ -99,6 +99,24 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	@Parameter(property = "dockerCompose.envFile")
 	private String envFile;
 
+	/**
+	 * Cmd to run and wait for exit status 0
+	 */
+	@Parameter(property = "dockerCompose.awaitCmd")
+	String awaitCmd;
+
+	/**
+	 * Arguments to awaitCmd (comma separated)
+	 */
+	@Parameter(property = "dockerCompose.awaitCmdArgs")
+	String awaitCmdArgs;
+
+	/**
+	 * Timeout for await (seconds)
+	 */
+	@Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
+	int awaitTimeout;
+
 	void execute(List<String> args) throws MojoExecutionException {
 
 		ProcessBuilder pb = buildProcess(args);

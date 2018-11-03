@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.dkanejs.maven.plugins.it</groupId>
+    <artifactId>await</artifactId>
+    <version>1.0</version>
+
+    <description>Verify "docker-compose with awaitCmd</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>process-test-classes</id>
+						<phase>process-test-classes</phase>
+						<configuration>
+							<target>
+								<chmod file="target/test-classes/await.sh" perm="755"/>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>@project.groupId@</groupId>
+				<artifactId>@project.artifactId@</artifactId>
+				<version>@project.version@</version>
+				<executions>
+					<execution>
+                        <id>up</id>
+                        <phase>verify</phase>
+						<goals>
+							<goal>up</goal>
+						</goals>
+						<configuration>
+                            <composeFile>${project.basedir}/docker-compose.yml</composeFile>
+                            <detachedMode>false</detachedMode>
+							<awaitCmd>${project.build.testOutputDirectory}/await.sh</awaitCmd>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
