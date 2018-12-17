@@ -9,7 +9,7 @@ Available on Maven Central.
 <dependency>
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
-    <version>2.2.0</version>
+    <version>2.3.0</version>
 </dependency>
 ```
 
@@ -189,7 +189,7 @@ Below has customised the location of the `docker-compose.yml` file and has two e
         <plugin>
             <groupId>com.dkanejs.maven.plugins</groupId>
             <artifactId>docker-compose-maven-plugin</artifactId>
-            <version>2.2.0</version>
+            <version>2.3.0</version>
             <executions>
                 <execution>
                     <id>up</id>
