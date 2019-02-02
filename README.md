@@ -105,6 +105,14 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
+#### projectName
+`projectName` - Specify project name
+```
+<configuration>
+    <projectName>customProjectName</projectName>
+</configuration>
+```
+
 #### host
 `host` - Specify host
 ```

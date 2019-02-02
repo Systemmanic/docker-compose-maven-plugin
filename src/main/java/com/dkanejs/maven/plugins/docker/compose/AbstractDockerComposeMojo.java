@@ -20,6 +20,11 @@ import java.util.Properties;
 
 
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
+    /**
+     * Specify an alternate project name
+     */
+    @Parameter(property = "dockerCompose.projectName")
+    String projectName;
 
 	/**
 	 * Docker host to interact with
@@ -183,6 +188,11 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 			cmd.add("-H");
 			cmd.add(host);
 		}
+
+		if (projectName != null) {
+	        cmd.add("-p");
+	        cmd.add(projectName);
+	    }
 
 		cmd.addAll(args);
 
