@@ -125,6 +125,7 @@
                                 <pomInclude>up-verbose/pom.xml</pomInclude>
                                 <pomInclude>up-api-version/pom.xml</pomInclude>
                                 <pomInclude>up-down-host/pom.xml</pomInclude>
+                                <pomInclude>up-down-alternate-project-name/pom.xml</pomInclude>
                                 <pomInclude>up-down-multiple-compose-files/pom.xml</pomInclude>
                                 <pomInclude>up-down-multiple-compose-files-ignoring-single/pom.xml</pomInclude>
                                 <pomInclude>up-await/pom.xml</pomInclude>
