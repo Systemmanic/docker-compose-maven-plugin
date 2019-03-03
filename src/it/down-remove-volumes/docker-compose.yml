@@ -2,7 +2,7 @@ version: '3.2'
 services:
   test:
     image: busybox
-    container_name: mpdc-it-down
+    container_name: mpdc-it-down-remove-volumes
     volumes:
      - test-volume:/opt/test
     command: sleep 600

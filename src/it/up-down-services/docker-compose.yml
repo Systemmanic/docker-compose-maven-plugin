@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  test-1:
+    image: busybox
+    container_name: mpdc-it-up-down-service-1
+    command: sleep 600
+  test-2:
+    image: busybox
+    container_name: mpdc-it-up-down-service-2
+    command: sleep 600
+  test-3:
+    image: busybox
+    container_name: mpdc-it-up-down-service-3
+    command: sleep 600

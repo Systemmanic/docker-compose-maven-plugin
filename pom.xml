@@ -5,7 +5,7 @@
 
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
-    <version>2.3.1</version>
+    <version>2.4.0-SNAPSHOT</version>
 
     <packaging>maven-plugin</packaging>
 
@@ -113,22 +113,23 @@
                             <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
                             <pomIncludes>
                                 <pomInclude>down/pom.xml</pomInclude>
-                                <pomInclude>down-remove-volumes/pom.xml</pomInclude>
-                                <pomInclude>down-remove-orphans/pom.xml</pomInclude>
                                 <pomInclude>down-remove-images/pom.xml</pomInclude>
                                 <pomInclude>down-remove-images-local/pom.xml</pomInclude>
+                                <pomInclude>down-remove-orphans/pom.xml</pomInclude>
+                                <pomInclude>down-remove-volumes/pom.xml</pomInclude>
                                 <pomInclude>up/pom.xml</pomInclude>
-                                <pomInclude>up-env/pom.xml</pomInclude>
+                                <pomInclude>up-api-version/pom.xml</pomInclude>
+                                <pomInclude>up-await/pom.xml</pomInclude>
                                 <pomInclude>up-build/pom.xml</pomInclude>
                                 <pomInclude>up-detached/pom.xml</pomInclude>
-                                <pomInclude>up-skip/pom.xml</pomInclude>
-                                <pomInclude>up-verbose/pom.xml</pomInclude>
-                                <pomInclude>up-api-version/pom.xml</pomInclude>
-                                <pomInclude>up-down-host/pom.xml</pomInclude>
                                 <pomInclude>up-down-alternate-project-name/pom.xml</pomInclude>
+                                <pomInclude>up-down-host/pom.xml</pomInclude>
                                 <pomInclude>up-down-multiple-compose-files/pom.xml</pomInclude>
                                 <pomInclude>up-down-multiple-compose-files-ignoring-single/pom.xml</pomInclude>
-                                <pomInclude>up-await/pom.xml</pomInclude>
+                                <pomInclude>up-down-services/pom.xml</pomInclude>
+                                <pomInclude>up-env/pom.xml</pomInclude>
+                                <pomInclude>up-skip/pom.xml</pomInclude>
+                                <pomInclude>up-verbose/pom.xml</pomInclude>
                             </pomIncludes>
                             <postBuildHookScript>verify</postBuildHookScript>
                             <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
