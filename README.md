@@ -5,7 +5,7 @@
 
 ## Quickstart
 Available on Maven Central.
-```
+```xml
 <dependency>
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
@@ -32,7 +32,7 @@ This plugin is designed to be light, fast and with minimum dependencies (only th
 The Plugin assumes your docker file is in `${project.basedir}/src/main/resources/docker-compose.yml`
 
 This can be changed in the configuration section of the plugin:
-```
+```xml
 <configuration>
     <composeFile>${project.basedir}/docker-compose.yml</composeFile>
 </configuration>
@@ -44,7 +44,7 @@ If the property `composeFiles` which allows multiple compose files is present th
 `composeFiles` - Location of multiple compose files. If this property is present then the value of the `composeFile` is ignored.
 
 This can be configured in the configuration section of the plugin:
-```
+```xml
 <configuration>
     <composeFiles>
         <composeFile>${project.basedir}/docker-compose.yml</composeFile>
@@ -52,6 +52,51 @@ This can be configured in the configuration section of the plugin:
     </composeFiles>
 </configuration>
 ```
+
+#### services
+`services` - Names of services.
+
+This property configures the plugin to only execute the commands on the services specified.
+
+This can be configured in the configuration section of the plugin:
+```xml
+<configuration>
+    <services>
+        <service>service-1</composeFile>
+        <service>service-2</composeFile>
+    </composeFiles>
+</configuration>
+```
+The following example will only start services: `test-1` and `test-2`:
+
+```xml
+<configuration>
+    <services>
+        <service>test-1</composeFile>
+        <service>test-2</composeFile>
+    </composeFiles>
+</configuration>
+```
+
+Against the following `docker-compose` file:
+
+```yaml
+version: '3.2'
+services:
+  test-1:
+    image: busybox
+    container_name: container-1
+  test-2:
+    image: busybox
+    container_name: container-2
+  test-3:
+    image: busybox
+    container_name: container-3
+```
+
+Equivalent `docker-compose` command:
+
+`docker-compose up service-1 service-2`
 
 #### detachedMode
 `detachedMode` - Run in detached mode
@@ -61,7 +106,7 @@ This adds `-d` to the up command.
 The plugin will not run in detached mode by default.
 
 This can be changed in the configuration section of the plugin:
-```
+```xml
 <configuration>
     <detachedMode>true</detachedMode>
 </configuration>
@@ -75,7 +120,7 @@ This adds `-v` to the `down` command.
 The plugin will not remove any volumes you create when using the `down` goal.
 
 This can be changed in the configuration section of the plugin:
-```
+```xml
 <configuration>
     <removeVolumes>true</removeVolumes>
 </configuration>
@@ -83,7 +128,7 @@ This can be changed in the configuration section of the plugin:
 
 #### apiVersion
 `apiVersion` - Specify compose API version
-```
+```xml
 <configuration>
    	<apiVersion>1.22</apiVersion>
 </configuration>
@@ -91,7 +136,7 @@ This can be changed in the configuration section of the plugin:
 
 #### verbose
 `verbose` - Enable verbose output
-```
+```xml
 <configuration>
    	<verbose>true</verbose>
 </configuration>
@@ -99,7 +144,7 @@ This can be changed in the configuration section of the plugin:
 
 #### skip
 `skip` - Skip execution
-```
+```xml
 <configuration>
    	<skip>true</skip>
 </configuration>
@@ -107,7 +152,7 @@ This can be changed in the configuration section of the plugin:
 
 #### projectName
 `projectName` - Specify project name
-```
+```xml
 <configuration>
     <projectName>customProjectName</projectName>
 </configuration>
@@ -115,7 +160,7 @@ This can be changed in the configuration section of the plugin:
 
 #### host
 `host` - Specify host
-```
+```xml
 <configuration>
     <host>unix:///var/run/docker.sock</host>
 </configuration>
@@ -129,7 +174,7 @@ This adds `--build` to the `up` command.
 The plugin will not build images first by default.
 
 This can be changed in the configuration section of the plugin:
-```
+```xml
 <configuration>
     <build>true</build>
 </configuration>
@@ -143,7 +188,7 @@ This adds `--remove-orphans` to the `down` command.
 The plugin will not remove orphans by default.
 
 This can be changed in the configuration section of the plugin:
-```
+```xml
 <configuration>
     <removeOrphans>true</removeOrphans>
 </configuration>
@@ -156,7 +201,7 @@ This adds `--rmi` to the `down` command.
 The plugin will not remove images by default.
 
 This can be changed in the configuration section of the plugin:
-```
+```xml
 <configuration>
     <removeImages>true</removeImages>
 </configuration>
@@ -166,7 +211,7 @@ Additional option `removeImagesType` allows to specify `type` parameter of `--rm
 `all` is the default value. 
 `local` is the second supported type.
 
-```
+```xml
 <configuration>
     <removeImages>true</removeImages>
     <removeImagesType>local</removeImagesType>
@@ -176,7 +221,7 @@ Additional option `removeImagesType` allows to specify `type` parameter of `--rm
 ## Configuration
 ### Default
 Below will allow use of the plugin from the `mvn` command line:
-```
+```xml
 <build>
     <plugins>
         <plugin>
@@ -191,7 +236,7 @@ This assumes the compose file is in the default location and will not run in any
 
 ### Advanced
 Below has customised the location of the `docker-compose.yml` file and has two executions defined:
-```
+```xml
 <build>
     <plugins>
         <plugin>

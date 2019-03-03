@@ -2,5 +2,5 @@ version: '3.2'
 services:
   test:
     image: busybox
-    container_name: mpdc-it-down
+    container_name: mpdc-it-up-down-multi-compose-files-ignore-single-overide
     command: sleep 600

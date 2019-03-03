@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.dkanejs.maven.plugins.it</groupId>
+    <artifactId>up-down-services</artifactId>
+    <version>1.0</version>
+
+    <description>Verify "docker-compose up" and "docker-compose down" runs with specific services defined.</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>@project.groupId@</groupId>
+                <artifactId>@project.artifactId@</artifactId>
+                <version>@project.version@</version>
+                <executions>
+                    <execution>
+                        <id>up</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>up</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>down</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>down</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <composeFiles>
+                        <composeFile>${project.basedir}/docker-compose.yml</composeFile>
+                    </composeFiles>
+                    <services>
+                        <service>test-1</service>
+                        <service>test-2</service>
+                    </services>
+                    <detachedMode>true</detachedMode>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

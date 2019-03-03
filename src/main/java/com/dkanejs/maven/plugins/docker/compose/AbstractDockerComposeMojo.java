@@ -20,17 +20,17 @@ import java.util.Properties;
 
 
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
-    /**
-     * Specify an alternate project name
-     */
-    @Parameter(property = "dockerCompose.projectName")
-    String projectName;
+	/**
+	 * Specify an alternate project name
+	 */
+	@Parameter(property = "dockerCompose.projectName")
+	private String projectName;
 
 	/**
 	 * Docker host to interact with
 	 */
 	@Parameter(property = "dockerCompose.host")
-	String host;
+	private String host;
 
 	/**
 	 * Remove volumes on down
@@ -60,7 +60,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	 * Build containers before run
 	 */
 	@Parameter(defaultValue = "false", property = "dockerCompose.build")
-	boolean build;
+	protected boolean build;
 
 	/**
 	 * The location of the Compose file. Value of this property is ignored if {@link #composeFiles} is set and non-empty.
@@ -71,8 +71,14 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	/**
 	 * Location of the Compose files. If this property is set and non-empty then {@link #composeFile} is ignored.
 	 */
-	@Parameter
+	@Parameter(property = "dockerCompose.composeFiles")
 	private List<String> composeFiles;
+
+	/**
+	 * Names of services. If this property is set only the configured services will be controlled.
+	 */
+	@Parameter(property = "dockerCompose.services")
+	protected List<String> services;
 
 	/**
 	 * The Compose Api Version
@@ -171,7 +177,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 			composeFilePaths.add(Paths.get(this.composeFile).toString());
 		}
 
-		getLog().info("Dockerfiles: " + String.join(", ", composeFilePaths));
+		getLog().info("Docker Compose Files: " + String.join(", ", composeFilePaths));
 
 		List<String> cmd = new ArrayList<>();
 		cmd.add("docker-compose");
@@ -190,9 +196,9 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		}
 
 		if (projectName != null) {
-	        cmd.add("-p");
-	        cmd.add(projectName);
-	    }
+			cmd.add("-p");
+			cmd.add(projectName);
+		}
 
 		cmd.addAll(args);
 
