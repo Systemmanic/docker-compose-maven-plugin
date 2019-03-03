@@ -9,7 +9,7 @@ Available on Maven Central.
 <dependency>
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
-    <version>2.3.1</version>
+    <version>2.4.0</version>
 </dependency>
 ```
 
@@ -227,7 +227,7 @@ Below will allow use of the plugin from the `mvn` command line:
         <plugin>
             <groupId>com.dkanejs.maven.plugins</groupId>
             <artifactId>docker-compose-maven-plugin</artifactId>
-            <version>2.3.1</version>
+            <version>2.4.0</version>
         </plugin>
     </plugins>
 </build>
@@ -242,7 +242,7 @@ Below has customised the location of the `docker-compose.yml` file and has two e
         <plugin>
             <groupId>com.dkanejs.maven.plugins</groupId>
             <artifactId>docker-compose-maven-plugin</artifactId>
-            <version>2.3.1</version>
+            <version>2.4.0</version>
             <executions>
                 <execution>
                     <id>up</id>
