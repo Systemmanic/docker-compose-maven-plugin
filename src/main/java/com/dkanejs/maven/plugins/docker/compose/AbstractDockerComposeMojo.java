@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.codehaus.plexus.util.IOUtil;
+import org.codehaus.plexus.util.StringUtils;
 
 
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
@@ -62,11 +67,17 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     @Parameter(defaultValue = "false", property = "dockerCompose.build")
     protected boolean build;
 
-    /**
-     * The location of the Compose file. Value of this property is ignored if {@link #composeFiles} is set and non-empty.
-     */
-    @Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
-    private String composeFile;
+	/**
+	 * Arguments for the {@link DockerComposeBuildMojo}
+	 */
+	@Parameter(defaultValue = "false", property = "dockerCompose.buildArgs")
+	protected BuildArguments buildArgs;
+
+	/**
+    * The location of the Compose file. Value of this property is ignored if {@link #composeFiles} is set and non-empty.
+    */
+	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
+	private String composeFile;
 
     /**
      * Location of the Compose files. If this property is set and non-empty then {@link #composeFile} is ignored.
@@ -192,8 +203,9 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
         getLog().info("Docker Compose Files: " + String.join(", ", composeFilePaths));
 
-        List<String> cmd = new ArrayList<>();
-        cmd.add("docker-compose");
+		final List<String> cmd = new ArrayList<>();
+
+		cmd.add("docker-compose");
 
         composeFilePaths.forEach(composeFilePath -> {
             cmd.add("-f");
@@ -226,29 +238,28 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
             environment.put("COMPOSE_API_VERSION", apiVersion);
         }
 
-        if (envFile != null) {
-            final Properties properties = new Properties();
+		if(envVars != null && !envVars.isEmpty()) {
+			envVars.forEach(environment::put);
+		}
 
-            try {
-                properties.load(new FileInputStream(envFile));
-                properties.forEach((k, v) -> environment.put(k.toString(), v.toString()));
-            } catch (final IOException e) {
-                throw new MojoExecutionException(e.getMessage());
-            }
-        }
+		if (envFile != null) {
+			final Properties properties = new Properties();
 
-        if (null != envVars) {
-            envVars.forEach((name, value) -> {
-                getLog().info(String.format("%s: %s", name, value));
-                environment.put(name, value);
-            });
-        }
-    }
+			try {
+				properties.load(new FileInputStream(envFile));
+				properties.forEach((k, v) -> environment.put(k.toString(), v.toString()));
+			} catch (final IOException e) {
+				throw new MojoExecutionException(e.getMessage());
+			}
+		}
+	}
 
-    enum Command {
-        UP("up"),
-        DOWN("down"),
-        PULL("pull");
+	enum Command {
+		UP("up"),
+		DOWN("down"),
+        PULL("pull"),
+		BUILD("build"),
+		PUSH("push");
 
         @SuppressWarnings("unused")
         private String value;
