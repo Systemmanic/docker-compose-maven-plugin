@@ -24,6 +24,8 @@ This plugin is designed to be light, fast and with minimum dependencies (only th
 ### Goals
 * up - runs `docker-compose up`
 * down - runs `docker-compose down`
+* build - runs `docker-compose build`
+* push - runs `docker-compose push`
 * pull - runs `docker-compose pull`
 
 ### Properties
@@ -264,6 +266,98 @@ This can be changed in the configuration section of the plugin:
     <ignorePullFailures>true</ignorePullFailures>
 </configuration>
 ```
+
+#### Environment variables
+
+You can add env vars to your `docker-compose` call via
+
+```xml
+<configuration>
+  ...
+  <envVars>
+    <jdkImageType>openjdk</jdkImageType>
+    <dockerImageTag>0.1.1</dockerImageTag>
+   </envVars>
+   ...
+</configuration>   
+``` 
+
+This will add `jdkImageType=openjdk` and `dockerImageTag=0.1.1` to the environment.
+
+#### Build arguments
+
+The build arguments for the `build` goal have there own section in the configuration.
+
+```xml
+<configuration>
+  <buildArgs>
+    ...
+  </buildArgs>
+</configuration>  
+```
+
+##### forceRm
+
+Adds `--force-rm` to the docker-compose build call.
+
+```xml
+<configuration>
+  <buildArgs>
+    ...
+    <forceRm>true</forceRm>
+    ...
+  </buildArgs>
+</configuration>  
+```
+
+##### noCache
+
+Adds `--no-cache` to the docker-compose build call.
+
+```xml
+<configuration>
+  <buildArgs>
+    ...  
+    <noCache>true</noCache>
+    ...
+  </buildArgs>
+</configuration>  
+```
+
+##### alwaysPull
+
+Adds `--pull` to the docker-compose build call.
+
+```xml
+<configuration>
+  <buildArgs>
+    ...  
+    <alwaysPull>true</alwaysPull>
+    ...
+  </buildArgs>
+</configuration>  
+```
+
+##### args
+
+Adds `--build-arg` to the docker-compose build call.
+
+
+```xml
+<configuration>
+  <buildArgs>
+    ...  
+     <args>
+       <foo>bar</foo>
+       <far>boor</far>
+     </args>
+    ...
+  </buildArgs>
+</configuration>  
+```
+
+This will add `--build-arg foo=bar` and `--build-arg far=boor` to the docker-compose build call.
+
 
 ## Configuration
 ### Default
