@@ -1,0 +1,6 @@
+version: '3.2'
+services:
+  test:
+    image: mpdc-it-build-forcerm
+    container_name: mpdc-it-build-forcerm
+    build: ./
