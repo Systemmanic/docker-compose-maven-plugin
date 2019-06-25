@@ -70,7 +70,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	/**
 	 * Arguments for the {@link DockerComposeBuildMojo}
 	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.buildArgs")
+	@Parameter(property = "dockerCompose.buildArgs")
 	protected BuildArguments buildArgs;
 
 	/**
