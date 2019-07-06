@@ -170,6 +170,9 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 		ProcessBuilder pb = new ProcessBuilder(command);
 
+		if (detachedMode)
+			pb = pb.inheritIO();
+
 		setEnvironment(pb);
 
 		return pb;
