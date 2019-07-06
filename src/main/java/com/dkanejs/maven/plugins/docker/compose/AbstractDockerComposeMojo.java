@@ -173,6 +173,9 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 		if (detachedMode)
 			pb = pb.inheritIO();
 
+		if (verbose)
+			pb = pb.redirectErrorStream(true);
+
 		setEnvironment(pb);
 
 		return pb;
