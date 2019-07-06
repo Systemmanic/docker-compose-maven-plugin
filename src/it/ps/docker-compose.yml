@@ -1,0 +1,15 @@
+version: '3.2'
+services:
+  test:
+    image: busybox
+    container_name: mpdc-it-ps-a
+    ports:
+      - 666
+    command: nc -l -p 666
+  another:
+    image: busybox
+    container_name: mpdc-it-ps-b
+    ports:
+      - 814
+      - 292
+    command: nc -l -p 814

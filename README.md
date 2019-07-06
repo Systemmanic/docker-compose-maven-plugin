@@ -24,6 +24,7 @@ This plugin is designed to be light, fast and with minimum dependencies (only th
 ### Goals
 * up - runs `docker-compose up`
 * down - runs `docker-compose down`
+* ps - runs `docker-compose ps` and generates a properties file containing assigned port mappings.
 
 ### Properties
 #### composeFile
@@ -193,6 +194,21 @@ This can be changed in the configuration section of the plugin:
     <removeOrphans>true</removeOrphans>
 </configuration>
 ```
+
+#### mappingFile
+`mappingFile` - Change the location of the generated port mapping properties file.
+
+The `docker-compose:ps` command generates a .properties file at 
+`${project.build.directory}/docker-compose-mappings.properties` that contains dynamic port mappings assigned by 
+docker-compose. 
+
+You can change the location of the generated file by setting the `mappingFile` configuration property:
+```xml
+<configuration>
+    <mappingFile>${basedir}/some/other/path.properties</mappingFile>
+</configuration>
+```
+
 #### removeImages
 `removeImages` - Remove images when executing `down`
 

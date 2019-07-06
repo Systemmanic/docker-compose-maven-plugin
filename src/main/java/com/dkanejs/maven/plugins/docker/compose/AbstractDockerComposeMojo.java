@@ -1,7 +1,6 @@
 package com.dkanejs.maven.plugins.docker.compose;
 
 import java.nio.file.Path;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -123,12 +122,22 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	String awaitCmdArgs;
 
 	/**
+	 * Path to properties generated containing service port mappings.
+	 */
+	@Parameter(defaultValue = "${project.build.directory}/docker-compose-mappings.properties", property = "dockerCompose.mappingFile")
+	String mappingFile;
+
+	/**
 	 * Timeout for await (seconds)
 	 */
 	@Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
 	int awaitTimeout;
 
 	void execute(List<String> args) throws MojoExecutionException {
+		execute(args, null);
+	}
+
+	void execute(List<String> args, List<String> output) throws MojoExecutionException {
 
 		ProcessBuilder pb = buildProcess(args);
 
@@ -136,13 +145,14 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 		try {
 			Process p = pb.start();
-
 			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-			String line;
-
-			while ((line = br.readLine()) != null)
+			br.lines().forEach(line -> {
 				getLog().info(line);
+				if (null != output) {
+					output.add(line);
+				}
+			});
 
 			int ec = p.waitFor();
 
@@ -158,7 +168,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 		List<String> command = buildCmd(args);
 
-		ProcessBuilder pb = new ProcessBuilder(command).inheritIO();
+		ProcessBuilder pb = new ProcessBuilder(command);
 
 		setEnvironment(pb);
 
@@ -227,7 +237,8 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
 	enum Command {
 		UP("up"),
-		DOWN("down");
+		DOWN("down"),
+		PS("ps");
 
 		@SuppressWarnings("unused")
 		private String value;

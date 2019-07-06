@@ -130,6 +130,7 @@
                                 <pomInclude>up-env/pom.xml</pomInclude>
                                 <pomInclude>up-skip/pom.xml</pomInclude>
                                 <pomInclude>up-verbose/pom.xml</pomInclude>
+                                <pomInclude>ps/pom.xml</pomInclude>
                             </pomIncludes>
                             <postBuildHookScript>verify</postBuildHookScript>
                             <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
