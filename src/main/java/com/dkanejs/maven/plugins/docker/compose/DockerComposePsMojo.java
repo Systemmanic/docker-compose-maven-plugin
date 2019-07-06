@@ -16,8 +16,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 @Mojo(name = "ps", threadSafe = true)
 public class DockerComposePsMojo extends AbstractDockerComposeMojo {
 
-	//public static final Pattern PATTERN_PS_OUTPUT = Pattern.compile("^([a-z0-9_.-]*)\\s.*\\s([0-9.:]*)\\-\\>([0-9]*)\\/(tcp|udp).*$");
-	public static final Pattern PATTERN_SERVICE = Pattern.compile("^([a-z\\-._]+)\\s");
 	public static final Pattern PATTERN_MAPPING = Pattern.compile("(?:([0-9a-f.:]+)->([0-9]+)/(tcp|udp))+");
 
 	public void execute() throws MojoExecutionException {
