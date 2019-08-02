@@ -53,6 +53,38 @@ This can be configured in the configuration section of the plugin:
 </configuration>
 ```
 
+#### envFile
+`envFile` - Location of a file containing environment variables for docker-compose in key=value format, one pair per line. 
+
+This can be configured in the configuration section of the plugin:
+```xml
+<configuration>
+    <envFile>${project.basedir}/.env</envFile>
+</configuration>
+```
+
+#### envVars
+`envVars` - Environment variables to be set when running docker-compose. Values set here override those set in a configured `envFile`.
+
+This can be configured in the configuration section of the plugin:
+```xml
+<configuration>
+    <envVars>
+        <serviceName>${project.groupId}.${project.artifactId}</serviceName>
+    </envVars>
+</configuration>
+```
+
+This allows you to parameterize your `docker-compose.yml`:
+
+```yaml
+version: '3.2'
+services:
+  service:
+    image: busybox
+    container_name: ${serviceName}-1
+```
+
 #### services
 `services` - Names of services.
 
