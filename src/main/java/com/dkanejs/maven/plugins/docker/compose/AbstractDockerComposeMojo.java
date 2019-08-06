@@ -110,6 +110,12 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 	private String envFile;
 
 	/**
+	 * Environment variables defined directly in the POM, overriding envFile
+	 */
+	@Parameter(property = "dockerCompose.envVars")
+	private Map<String,String> envVars;
+
+	/**
 	 * Cmd to run and wait for exit status 0
 	 */
 	@Parameter(property = "dockerCompose.awaitCmd")
@@ -238,6 +244,13 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 			} catch (final IOException e) {
 				throw new MojoExecutionException(e.getMessage());
 			}
+		}
+
+		if (null != envVars) {
+			envVars.forEach((name, value) -> {
+				getLog().info(String.format("%s: %s", name, value));
+				environment.put(name, value);
+			});
 		}
 	}
 

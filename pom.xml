@@ -128,6 +128,7 @@
                                 <pomInclude>up-down-multiple-compose-files-ignoring-single/pom.xml</pomInclude>
                                 <pomInclude>up-down-services/pom.xml</pomInclude>
                                 <pomInclude>up-env/pom.xml</pomInclude>
+                                <pomInclude>up-env-vars/pom.xml</pomInclude>
                                 <pomInclude>up-skip/pom.xml</pomInclude>
                                 <pomInclude>up-verbose/pom.xml</pomInclude>
                                 <pomInclude>ps/pom.xml</pomInclude>
