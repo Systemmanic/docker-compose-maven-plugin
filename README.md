@@ -24,6 +24,7 @@ This plugin is designed to be light, fast and with minimum dependencies (only th
 ### Goals
 * up - runs `docker-compose up`
 * down - runs `docker-compose down`
+* pull - runs `docker-compose pull`
 
 ### Properties
 #### composeFile
@@ -300,7 +301,7 @@ Below has customised the location of the `docker-compose.yml` file and has three
                         <composeFile>${project.basedir}/docker-compose.yml</composeFile>
                         <ignorePullFailures>true</ignorePullFailures>
                     </configuration>
-                </execution>            
+                </execution>
                 <execution>
                     <id>up</id>
                     <phase>verify</phase>
