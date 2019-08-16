@@ -252,6 +252,13 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 				throw new MojoExecutionException(e.getMessage());
 			}
 		}
+
+		if (envVars != null) {
+			envVars.forEach((name, value) -> {
+				getLog().info(String.format("%s: %s", name, value));
+				environment.put(name, value);
+			});
+		}
 	}
 
 	enum Command {

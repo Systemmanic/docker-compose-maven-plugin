@@ -1,9 +1,10 @@
 package com.dkanejs.maven.plugins.docker.compose;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * docker-compose build
@@ -20,7 +21,8 @@ public class DockerComposeBuildMojo extends AbstractDockerComposeMojo {
 		}
 
 		final List<String> args = new ArrayList<>();
-		args.add(Command.BUILD.getValue());
+
+		/*args.add(Command.BUILD.getValue());
 
 
 		if (buildArgs.forceRm) {
@@ -48,7 +50,9 @@ public class DockerComposeBuildMojo extends AbstractDockerComposeMojo {
 		}
 
 		if (services != null && !services.isEmpty())
-			args.addAll(services);
+			args.addAll(services);*/
+
+		args.add("version");
 
 		super.execute(args);
 	}
