@@ -6,3 +6,5 @@ String composeFile = Paths.get("${basedir}/docker-compose.yml").toString()
 
 assert buildLog.contains("Running in detached mode")
 assert buildLog.contains("Running: docker-compose -f $composeFile up -d --no-color" as CharSequence)
+
+evaluate(new File("src/it/prune_docker.groovy"))

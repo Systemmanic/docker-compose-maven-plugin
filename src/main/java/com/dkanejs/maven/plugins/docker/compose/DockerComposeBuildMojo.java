@@ -22,7 +22,7 @@ public class DockerComposeBuildMojo extends AbstractDockerComposeMojo {
 
 		final List<String> args = new ArrayList<>();
 
-		/*args.add(Command.BUILD.getValue());
+		args.add(Command.BUILD.getValue());
 
 
 		if (buildArgs.forceRm) {
@@ -49,10 +49,10 @@ public class DockerComposeBuildMojo extends AbstractDockerComposeMojo {
 			});
 		}
 
-		if (services != null && !services.isEmpty())
-			args.addAll(services);*/
+		if (services != null && !services.isEmpty()) {
+			args.addAll(services);
+		}
 
-		args.add("version");
 
 		super.execute(args);
 	}

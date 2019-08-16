@@ -7,3 +7,5 @@ String composeFile = Paths.get("${basedir}/docker-compose.yml").toString()
 assert buildLog.contains("Running: docker-compose -f $composeFile up -d --no-color" as CharSequence)
 assert buildLog.contains("Running: docker-compose -f $composeFile down --rmi all" as CharSequence)
 assert buildLog.contains("Removing images")
+
+evaluate(new File("src/it/prune_docker.groovy"))

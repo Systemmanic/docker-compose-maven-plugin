@@ -7,3 +7,7 @@ String composeFileOverride = Paths.get("${basedir}/docker-compose.override.yml")
 
 assert buildLog.contains("Running: docker-compose -f $composeFile -f $composeFileOverride up -d --no-color" as CharSequence)
 assert buildLog.contains("Running: docker-compose -f $composeFile -f $composeFileOverride down" as CharSequence)
+
+evaluate(new File("src/it/prune_docker.groovy"))
+
+

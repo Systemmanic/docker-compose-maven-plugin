@@ -7,7 +7,7 @@ String composeFile = Paths.get("${basedir}/docker-compose.yml").toString()
 
 assert buildLog.contains("Running: docker-compose -f $composeFile build --build-arg far=boor --build-arg foo=bar" as CharSequence)
 
-def cleanUpProcess = new ProcessBuilder("docker", "system", "prune", "-a", "-f").start().waitFor()
-assert cleanUpProcess == 0
+evaluate(new File("src/it/prune_docker.groovy"))
+
 
 

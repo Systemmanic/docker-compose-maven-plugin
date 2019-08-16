@@ -29,6 +29,7 @@
             <configuration>
               <composeFile>${project.basedir}/docker-compose.yml</composeFile>
               <detachedMode>false</detachedMode>
+              <services>test</services>
               <buildArgs>
                 <args>
                   <foo>bar</foo>
