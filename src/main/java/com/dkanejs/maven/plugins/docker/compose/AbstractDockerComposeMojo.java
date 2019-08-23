@@ -134,12 +134,11 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     @Parameter(property = "dockerCompose.awaitCmdArgs")
     String awaitCmdArgs;
 
-    /**
-     * Timeout for await (seconds)
-     */
-    @Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
-    int awaitTimeout;
-
+	/**
+	 * Timeout for await (seconds)
+	 */
+	@Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
+	int awaitTimeout;
 
     /**
      * Ignore pull failures
@@ -147,7 +146,7 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     @Parameter(defaultValue = "false", property = "dockerCompose.ignorePullFailures")
     boolean ignorePullFailures;
 
-    void execute(List<String> args) throws MojoExecutionException {
+	void execute(List<String> args) throws MojoExecutionException {
 
         ProcessBuilder pb = buildProcess(args);
 
@@ -248,20 +247,22 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
             }
         }
 
-        if (null != envVars) {
-            envVars.forEach((name, value) -> {
-                getLog().info(String.format("%s: %s", name, value));
-                environment.put(name, value);
-            });
-        }
-    }
+		if (null != envVars) {
+			envVars.forEach((name, value) -> {
+				getLog().info(String.format("%s: %s", name, value));
+				environment.put(name, value);
+			});
+		}
+	}
 
-    enum Command {
-        UP("up"),
-        DOWN("down"),
+	enum Command {
+		UP("up"),
+		DOWN("down"),
+		STOP("stop"),
         PULL("pull"),
         PUSH("push"),
-        BUILD("build");
+        BUILD("build"),
+		RESTART("restart");
 
         @SuppressWarnings("unused")
         private String value;
