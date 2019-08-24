@@ -7,7 +7,9 @@
     <artifactId>up-down-multiple-compose-files-ignoring-single</artifactId>
     <version>1.0</version>
 
-    <description>Verify "docker-compose up" and "docker-compose down" runs with multiple docker compose files and ignoring single compose file definition.</description>
+    <description>Verify "docker-compose up" and "docker-compose down" runs with multiple docker compose files and
+        ignoring single compose file definition.
+    </description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

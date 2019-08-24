@@ -10,33 +10,33 @@ import java.util.List;
 @Mojo(name = "down", threadSafe = true)
 public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
 
-	public void execute() throws MojoExecutionException {
+    public void execute() throws MojoExecutionException {
 
-		if (skip) {
-			getLog().info("Skipping execution");
-			return;
-		}
+        if (skip) {
+            getLog().info("Skipping execution");
+            return;
+        }
 
-		List<String> args = new ArrayList<>();
+        List<String> args = new ArrayList<>();
 
-		args.add(Command.DOWN.getValue());
+        args.add(Command.DOWN.getValue());
 
-		if (removeVolumes) {
-			getLog().info("Removing volumes");
-			args.add("-v");
-		}
+        if (removeVolumes) {
+            getLog().info("Removing volumes");
+            args.add("-v");
+        }
 
-		if (removeImages) {
-			getLog().info("Removing images");
-			args.add("--rmi");
-			args.add(removeImagesType);
-		}
+        if (removeImages) {
+            getLog().info("Removing images");
+            args.add("--rmi");
+            args.add(removeImagesType);
+        }
 
-		if (removeOrphans) {
-			getLog().info("Removing orphans");
-			args.add("--remove-orphans");
-		}
+        if (removeOrphans) {
+            getLog().info("Removing orphans");
+            args.add("--remove-orphans");
+        }
 
-		super.execute(args);
-	}
+            super.execute(args);
+    }
 }

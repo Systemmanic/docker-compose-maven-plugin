@@ -1,15 +1,13 @@
 root = true
 
 [*]
+charset = utf-8
 end_of_line = lf
+indent_size = 4
+indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
-charset = utf-8
+tab_width = 4
 
-[*.java]
-indent_style = tab
-indent_size = 4
-
-[**.yml]
-indent_style = space
+[{*.yaml,*.yml}]
 indent_size = 2
