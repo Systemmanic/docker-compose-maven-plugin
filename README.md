@@ -1,15 +1,15 @@
 # Docker Compose Maven Plugin
 [![Build Status](https://travis-ci.org/dkanejs/docker-compose-maven-plugin.svg?branch=master)](https://travis-ci.org/dkanejs/docker-compose-maven-plugin)
-[![Join the chat at https://gitter.im/dkanejs/docker-compose-maven-plugin](https://badges.gitter.im/dkanejs/docker-compose-maven-plugin.svg)](https://gitter.im/dkanejs/docker-compose-maven-plugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.dkanejs.maven.plugins/docker-compose-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.dkanejs.maven.plugins/docker-compose-maven-plugin)
 
 ## Quickstart
 Available on Maven Central.
+
 ```xml
 <dependency>
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
-    <version>2.4.0</version>
+    <version>$VERSION</version>
 </dependency>
 ```
 
@@ -54,7 +54,7 @@ This can be configured in the configuration section of the plugin:
 ```
 
 #### envFile
-`envFile` - Location of a file containing environment variables for docker-compose in key=value format, one pair per line. 
+`envFile` - Location of a file containing environment variables for docker-compose in key=value format, one pair per line.
 
 This can be configured in the configuration section of the plugin:
 ```xml
@@ -239,8 +239,8 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
-Additional option `removeImagesType` allows to specify `type` parameter of `--rmi` docker compose flag. 
-`all` is the default value. 
+Additional option `removeImagesType` allows to specify `type` parameter of `--rmi` docker compose flag.
+`all` is the default value.
 `local` is the second supported type.
 
 ```xml
@@ -259,7 +259,7 @@ Below will allow use of the plugin from the `mvn` command line:
         <plugin>
             <groupId>com.dkanejs.maven.plugins</groupId>
             <artifactId>docker-compose-maven-plugin</artifactId>
-            <version>2.4.0</version>
+            <version>$VERSION</version>
         </plugin>
     </plugins>
 </build>
@@ -274,7 +274,7 @@ Below has customised the location of the `docker-compose.yml` file and has two e
         <plugin>
             <groupId>com.dkanejs.maven.plugins</groupId>
             <artifactId>docker-compose-maven-plugin</artifactId>
-            <version>2.4.0</version>
+            <version>$VERSION</version>
             <executions>
                 <execution>
                     <id>up</id>

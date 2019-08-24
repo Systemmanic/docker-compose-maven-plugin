@@ -4,7 +4,7 @@ services:
     image: busybox
     container_name: mpdc-it-down-remove-volumes
     volumes:
-     - test-volume:/opt/test
+      - test-volume:/opt/test
     command: sleep 600
 
 volumes:

@@ -1,7 +1,5 @@
 package com.dkanejs.maven.plugins.docker.compose;
 
-import java.nio.file.Path;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -12,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,237 +19,237 @@ import java.util.Properties;
 
 
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
-	/**
-	 * Specify an alternate project name
-	 */
-	@Parameter(property = "dockerCompose.projectName")
-	private String projectName;
+    /**
+     * Specify an alternate project name
+     */
+    @Parameter(property = "dockerCompose.projectName")
+    private String projectName;
 
-	/**
-	 * Docker host to interact with
-	 */
-	@Parameter(property = "dockerCompose.host")
-	private String host;
+    /**
+     * Docker host to interact with
+     */
+    @Parameter(property = "dockerCompose.host")
+    private String host;
 
-	/**
-	 * Remove volumes on down
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
-	boolean removeVolumes;
+    /**
+     * Remove volumes on down
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.removeVolumes")
+    boolean removeVolumes;
 
-	/**
-	 * Remove images on down
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.removeImages")
-	boolean removeImages;
+    /**
+     * Remove images on down
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.removeImages")
+    boolean removeImages;
 
-	/**
-	 * 'type' of images to remove on down
-	 */
-	@Parameter(defaultValue = "all", property = "dockerCompose.removeImages.type")
-	String removeImagesType;
+    /**
+     * 'type' of images to remove on down
+     */
+    @Parameter(defaultValue = "all", property = "dockerCompose.removeImages.type")
+    String removeImagesType;
 
-	/**
-	 * Run in detached mode
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.detached")
-	protected boolean detachedMode;
+    /**
+     * Run in detached mode
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.detached")
+    protected boolean detachedMode;
 
-	/**
-	 * Build containers before run
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.build")
-	protected boolean build;
+    /**
+     * Build containers before run
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.build")
+    protected boolean build;
 
-	/**
-	 * The location of the Compose file. Value of this property is ignored if {@link #composeFiles} is set and non-empty.
-	 */
-	@Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
-	private String composeFile;
+    /**
+     * The location of the Compose file. Value of this property is ignored if {@link #composeFiles} is set and non-empty.
+     */
+    @Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
+    private String composeFile;
 
-	/**
-	 * Location of the Compose files. If this property is set and non-empty then {@link #composeFile} is ignored.
-	 */
-	@Parameter(property = "dockerCompose.composeFiles")
-	private List<String> composeFiles;
+    /**
+     * Location of the Compose files. If this property is set and non-empty then {@link #composeFile} is ignored.
+     */
+    @Parameter(property = "dockerCompose.composeFiles")
+    private List<String> composeFiles;
 
-	/**
-	 * Names of services. If this property is set only the configured services will be controlled.
-	 */
-	@Parameter(property = "dockerCompose.services")
-	protected List<String> services;
+    /**
+     * Names of services. If this property is set only the configured services will be controlled.
+     */
+    @Parameter(property = "dockerCompose.services")
+    protected List<String> services;
 
-	/**
-	 * The Compose Api Version
-	 */
-	@Parameter(property = "dockerCompose.apiVersion")
-	private String apiVersion;
+    /**
+     * The Compose Api Version
+     */
+    @Parameter(property = "dockerCompose.apiVersion")
+    private String apiVersion;
 
-	/**
-	 * Verbose
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.verbose")
-	private boolean verbose;
+    /**
+     * Verbose
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.verbose")
+    private boolean verbose;
 
-	/**
-	 * Skip
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.skip")
-	boolean skip;
+    /**
+     * Skip
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.skip")
+    boolean skip;
 
-	/**
-	 * Remove containers for services not defined in the Compose file
-	 */
-	@Parameter(defaultValue = "false", property = "dockerCompose.removeOrphans")
-	boolean removeOrphans;
+    /**
+     * Remove containers for services not defined in the Compose file
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.removeOrphans")
+    boolean removeOrphans;
 
-	/**
-	 * Properties file from which docker environment variables are set
-	 */
-	@Parameter(property = "dockerCompose.envFile")
-	private String envFile;
+    /**
+     * Properties file from which docker environment variables are set
+     */
+    @Parameter(property = "dockerCompose.envFile")
+    private String envFile;
 
-	/**
-	 * Environment variables defined directly in the POM, overriding envFile
-	 */
-	@Parameter(property = "dockerCompose.envVars")
-	private Map<String,String> envVars;
+    /**
+     * Environment variables defined directly in the POM, overriding envFile
+     */
+    @Parameter(property = "dockerCompose.envVars")
+    private Map<String, String> envVars;
 
-	/**
-	 * Cmd to run and wait for exit status 0
-	 */
-	@Parameter(property = "dockerCompose.awaitCmd")
-	String awaitCmd;
+    /**
+     * Cmd to run and wait for exit status 0
+     */
+    @Parameter(property = "dockerCompose.awaitCmd")
+    String awaitCmd;
 
-	/**
-	 * Arguments to awaitCmd (comma separated)
-	 */
-	@Parameter(property = "dockerCompose.awaitCmdArgs")
-	String awaitCmdArgs;
+    /**
+     * Arguments to awaitCmd (comma separated)
+     */
+    @Parameter(property = "dockerCompose.awaitCmdArgs")
+    String awaitCmdArgs;
 
-	/**
-	 * Timeout for await (seconds)
-	 */
-	@Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
-	int awaitTimeout;
+    /**
+     * Timeout for await (seconds)
+     */
+    @Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
+    int awaitTimeout;
 
-	void execute(List<String> args) throws MojoExecutionException {
+    void execute(List<String> args) throws MojoExecutionException {
 
-		ProcessBuilder pb = buildProcess(args);
+        ProcessBuilder pb = buildProcess(args);
 
-		getLog().info("Running: " + StringUtils.join(pb.command().iterator(), " "));
+        getLog().info("Running: " + StringUtils.join(pb.command().iterator(), " "));
 
-		try {
-			Process p = pb.start();
+        try {
+            Process p = pb.start();
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-			String line;
+            String line;
 
-			while ((line = br.readLine()) != null)
-				getLog().info(line);
+            while ((line = br.readLine()) != null)
+                getLog().info(line);
 
-			int ec = p.waitFor();
+            int ec = p.waitFor();
 
-			if (ec != 0)
-				throw new DockerComposeException(IOUtil.toString(p.getErrorStream()));
+            if (ec != 0)
+                throw new DockerComposeException(IOUtil.toString(p.getErrorStream()));
 
-		} catch (Exception e) {
-			throw new MojoExecutionException(e.getMessage());
-		}
-	}
+        } catch (Exception e) {
+            throw new MojoExecutionException(e.getMessage());
+        }
+    }
 
-	private ProcessBuilder buildProcess(List<String> args) throws MojoExecutionException {
+    private ProcessBuilder buildProcess(List<String> args) throws MojoExecutionException {
 
-		List<String> command = buildCmd(args);
+        List<String> command = buildCmd(args);
 
-		ProcessBuilder pb = new ProcessBuilder(command).inheritIO();
+        ProcessBuilder pb = new ProcessBuilder(command).inheritIO();
 
-		setEnvironment(pb);
+        setEnvironment(pb);
 
-		return pb;
-	}
+        return pb;
+    }
 
-	private List<String> buildCmd(List<String> args) {
-		List<String> composeFilePaths = new ArrayList<>();
+    private List<String> buildCmd(List<String> args) {
+        List<String> composeFilePaths = new ArrayList<>();
 
-		if (composeFiles != null && !composeFiles.isEmpty()) {
-			composeFiles.stream()
-				.map(Paths::get)
-				.map(Path::toString)
-				.forEachOrdered(composeFilePaths::add);
-		} else {
-			composeFilePaths.add(Paths.get(this.composeFile).toString());
-		}
+        if (composeFiles != null && !composeFiles.isEmpty()) {
+            composeFiles.stream()
+                    .map(Paths::get)
+                    .map(Path::toString)
+                    .forEachOrdered(composeFilePaths::add);
+        } else {
+            composeFilePaths.add(Paths.get(this.composeFile).toString());
+        }
 
-		getLog().info("Docker Compose Files: " + String.join(", ", composeFilePaths));
+        getLog().info("Docker Compose Files: " + String.join(", ", composeFilePaths));
 
-		List<String> cmd = new ArrayList<>();
-		cmd.add("docker-compose");
+        List<String> cmd = new ArrayList<>();
+        cmd.add("docker-compose");
 
-		composeFilePaths.forEach(composeFilePath -> {
-			cmd.add("-f");
-			cmd.add(composeFilePath);
-		});
+        composeFilePaths.forEach(composeFilePath -> {
+            cmd.add("-f");
+            cmd.add(composeFilePath);
+        });
 
-		if (verbose)
-			cmd.add("--verbose");
+        if (verbose)
+            cmd.add("--verbose");
 
-		if (host != null) {
-			cmd.add("-H");
-			cmd.add(host);
-		}
+        if (host != null) {
+            cmd.add("-H");
+            cmd.add(host);
+        }
 
-		if (projectName != null) {
-			cmd.add("-p");
-			cmd.add(projectName);
-		}
+        if (projectName != null) {
+            cmd.add("-p");
+            cmd.add(projectName);
+        }
 
-		cmd.addAll(args);
+        cmd.addAll(args);
 
-		return cmd;
-	}
+        return cmd;
+    }
 
-	private void setEnvironment(ProcessBuilder processBuilder) throws MojoExecutionException {
-		Map<String, String> environment = processBuilder.environment();
+    private void setEnvironment(ProcessBuilder processBuilder) throws MojoExecutionException {
+        Map<String, String> environment = processBuilder.environment();
 
-		if (apiVersion != null) {
-			getLog().info("COMPOSE_API_VERSION: " + apiVersion);
-			environment.put("COMPOSE_API_VERSION", apiVersion);
-		}
+        if (apiVersion != null) {
+            getLog().info("COMPOSE_API_VERSION: " + apiVersion);
+            environment.put("COMPOSE_API_VERSION", apiVersion);
+        }
 
-		if (envFile != null) {
-			final Properties properties = new Properties();
+        if (envFile != null) {
+            final Properties properties = new Properties();
 
-			try {
-				properties.load(new FileInputStream(envFile));
-				properties.forEach((k, v) -> environment.put(k.toString(), v.toString()));
-			} catch (final IOException e) {
-				throw new MojoExecutionException(e.getMessage());
-			}
-		}
+            try {
+                properties.load(new FileInputStream(envFile));
+                properties.forEach((k, v) -> environment.put(k.toString(), v.toString()));
+            } catch (final IOException e) {
+                throw new MojoExecutionException(e.getMessage());
+            }
+        }
 
-		if (null != envVars) {
-			envVars.forEach((name, value) -> {
-				getLog().info(String.format("%s: %s", name, value));
-				environment.put(name, value);
-			});
-		}
-	}
+        if (null != envVars) {
+            envVars.forEach((name, value) -> {
+                getLog().info(String.format("%s: %s", name, value));
+                environment.put(name, value);
+            });
+        }
+    }
 
-	enum Command {
-		UP("up"),
-		DOWN("down");
+    enum Command {
+        UP("up"),
+        DOWN("down");
 
-		@SuppressWarnings("unused")
-		private String value;
+        @SuppressWarnings("unused")
+        private String value;
 
-		Command(String value) {
-			this.value = value;
-		}
+        Command(String value) {
+            this.value = value;
+        }
 
-		public String getValue() {
-			return value;
-		}
-	}
+        public String getValue() {
+            return value;
+        }
+    }
 }
