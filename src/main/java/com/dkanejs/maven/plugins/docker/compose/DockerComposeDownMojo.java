@@ -37,6 +37,6 @@ public class DockerComposeDownMojo extends AbstractDockerComposeMojo {
             args.add("--remove-orphans");
         }
 
-            super.execute(args);
+        super.execute(args);
     }
 }

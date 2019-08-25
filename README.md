@@ -24,6 +24,7 @@ This plugin is designed to be light, fast and with minimum dependencies (only th
 ### Goals
 * up - runs `docker-compose up`
 * down - runs `docker-compose down`
+* pull - runs `docker-compose pull`
 
 ### Properties
 #### composeFile
@@ -250,6 +251,20 @@ Additional option `removeImagesType` allows to specify `type` parameter of `--rm
 </configuration>
 ```
 
+#### ignorePullFailures
+`ignorePullFailures` - Ignores failures when executing the pull goal
+
+This adds `--ignore-pull-failures` to the `pull` command.
+
+The plugin will not ignore pull failures by default.
+
+This can be changed in the configuration section of the plugin:
+```xml
+<configuration>
+    <ignorePullFailures>true</ignorePullFailures>
+</configuration>
+```
+
 ## Configuration
 ### Default
 Below will allow use of the plugin from the `mvn` command line:
@@ -267,7 +282,7 @@ Below will allow use of the plugin from the `mvn` command line:
 This assumes the compose file is in the default location and will not run in any phase of the build.
 
 ### Advanced
-Below has customised the location of the `docker-compose.yml` file and has two executions defined:
+Below has customised the location of the `docker-compose.yml` file and has three executions defined:
 ```xml
 <build>
     <plugins>
@@ -276,6 +291,17 @@ Below has customised the location of the `docker-compose.yml` file and has two e
             <artifactId>docker-compose-maven-plugin</artifactId>
             <version>$VERSION</version>
             <executions>
+                <execution>
+                    <id>pull</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>pull</goal>
+                    </goals>
+                    <configuration>
+                        <composeFile>${project.basedir}/docker-compose.yml</composeFile>
+                        <ignorePullFailures>true</ignorePullFailures>
+                    </configuration>
+                </execution>
                 <execution>
                     <id>up</id>
                     <phase>verify</phase>
@@ -305,5 +331,6 @@ Below has customised the location of the `docker-compose.yml` file and has two e
 ```
 
 This will run the following as part of the `verify` phase:
- 1. `docker-compose up -d` using a `docker-compose.yml` file in a custom location
- 2. `docker-compose down -v` using a `docker-compose.yml` file in a custom location
+ 1. `docker-compose pull --ignore-pull-failures` using a `docker-compose.yml` file in a custom location
+ 2. `docker-compose up -d` using a `docker-compose.yml` file in a custom location
+ 3. `docker-compose down -v` using a `docker-compose.yml` file in a custom location

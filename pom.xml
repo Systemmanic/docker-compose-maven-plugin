@@ -145,6 +145,9 @@
                                 <pomInclude>up-env-vars/pom.xml</pomInclude>
                                 <pomInclude>up-skip/pom.xml</pomInclude>
                                 <pomInclude>up-verbose/pom.xml</pomInclude>
+                                <pomInclude>pull/pom.xml</pomInclude>
+                                <pomInclude>pull-ignore-failures/pom.xml</pomInclude>
+                                <pomInclude>pull-skip/pom.xml</pomInclude>
                             </pomIncludes>
                             <postBuildHookScript>verify</postBuildHookScript>
                             <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>

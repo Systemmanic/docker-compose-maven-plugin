@@ -19,6 +19,7 @@ import java.util.Properties;
 
 
 abstract class AbstractDockerComposeMojo extends AbstractMojo {
+
     /**
      * Specify an alternate project name
      */
@@ -133,6 +134,13 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     @Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
     int awaitTimeout;
 
+
+    /**
+     * Ignore pull failures
+     */
+    @Parameter(defaultValue = "false", property = "dockerCompose.ignorePullFailures")
+    boolean ignorePullFailures;
+
     void execute(List<String> args) throws MojoExecutionException {
 
         ProcessBuilder pb = buildProcess(args);
@@ -175,9 +183,9 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
         if (composeFiles != null && !composeFiles.isEmpty()) {
             composeFiles.stream()
-                    .map(Paths::get)
-                    .map(Path::toString)
-                    .forEachOrdered(composeFilePaths::add);
+                .map(Paths::get)
+                .map(Path::toString)
+                .forEachOrdered(composeFilePaths::add);
         } else {
             composeFilePaths.add(Paths.get(this.composeFile).toString());
         }
@@ -239,7 +247,8 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
     enum Command {
         UP("up"),
-        DOWN("down");
+        DOWN("down"),
+        PULL("pull");
 
         @SuppressWarnings("unused")
         private String value;
