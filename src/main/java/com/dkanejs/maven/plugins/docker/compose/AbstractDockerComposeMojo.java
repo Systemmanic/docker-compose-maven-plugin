@@ -63,6 +63,12 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     protected boolean build;
 
     /**
+     * Arguments for the {@link DockerComposeBuildMojo}
+     */
+    @Parameter(property = "dockerCompose.buildArgs")
+    protected BuildArguments buildArgs;
+
+    /**
      * The location of the Compose file. Value of this property is ignored if {@link #composeFiles} is set and non-empty.
      */
     @Parameter(defaultValue = "${project.basedir}/src/main/resources/docker-compose.yml", property = "dockerCompose.file")
@@ -192,7 +198,8 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
 
         getLog().info("Docker Compose Files: " + String.join(", ", composeFilePaths));
 
-        List<String> cmd = new ArrayList<>();
+        final List<String> cmd = new ArrayList<>();
+
         cmd.add("docker-compose");
 
         composeFilePaths.forEach(composeFilePath -> {
@@ -226,6 +233,10 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
             environment.put("COMPOSE_API_VERSION", apiVersion);
         }
 
+        if (envVars != null && !envVars.isEmpty()) {
+            envVars.forEach(environment::put);
+        }
+
         if (envFile != null) {
             final Properties properties = new Properties();
 
@@ -248,7 +259,9 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     enum Command {
         UP("up"),
         DOWN("down"),
-        PULL("pull");
+        PULL("pull"),
+        BUILD("build"),
+        PUSH("push");
 
         @SuppressWarnings("unused")
         private String value;

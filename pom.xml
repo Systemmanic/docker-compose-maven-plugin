@@ -126,6 +126,12 @@
                             <debug>false</debug>
                             <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
                             <pomIncludes>
+                                <pomInclude>envvars/pom.xml</pomInclude>
+                                <pomInclude>build/pom.xml</pomInclude>
+                                <pomInclude>build-args/pom.xml</pomInclude>
+                                <pomInclude>build-force-rm/pom.xml</pomInclude>
+                                <pomInclude>build-no-cache/pom.xml</pomInclude>
+                                <pomInclude>build-pull/pom.xml</pomInclude>
                                 <pomInclude>down/pom.xml</pomInclude>
                                 <pomInclude>down-remove-images/pom.xml</pomInclude>
                                 <pomInclude>down-remove-images-local/pom.xml</pomInclude>

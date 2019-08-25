@@ -1,0 +1,6 @@
+version: '3.2'
+services:
+  test:
+    image: mpdc-it-build-pull
+    container_name: mpdc-it-build-pull
+    build: ./
