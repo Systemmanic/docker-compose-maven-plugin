@@ -279,8 +279,8 @@ You can add env vars to your `docker-compose` call via
     <dockerImageTag>0.1.1</dockerImageTag>
    </envVars>
    ...
-</configuration>   
-``` 
+</configuration>
+```
 
 This will add `jdkImageType=openjdk` and `dockerImageTag=0.1.1` to the environment.
 
@@ -293,7 +293,7 @@ The build arguments for the `build` goal have there own section in the configura
   <buildArgs>
     ...
   </buildArgs>
-</configuration>  
+</configuration>
 ```
 
 ##### forceRm
@@ -307,7 +307,7 @@ Adds `--force-rm` to the docker-compose build call.
     <forceRm>true</forceRm>
     ...
   </buildArgs>
-</configuration>  
+</configuration>
 ```
 
 ##### noCache
@@ -317,11 +317,11 @@ Adds `--no-cache` to the docker-compose build call.
 ```xml
 <configuration>
   <buildArgs>
-    ...  
+    ...
     <noCache>true</noCache>
     ...
   </buildArgs>
-</configuration>  
+</configuration>
 ```
 
 ##### alwaysPull
@@ -331,11 +331,11 @@ Adds `--pull` to the docker-compose build call.
 ```xml
 <configuration>
   <buildArgs>
-    ...  
+    ...
     <alwaysPull>true</alwaysPull>
     ...
   </buildArgs>
-</configuration>  
+</configuration>
 ```
 
 ##### args
@@ -346,14 +346,14 @@ Adds `--build-arg` to the docker-compose build call.
 ```xml
 <configuration>
   <buildArgs>
-    ...  
+    ...
      <args>
        <foo>bar</foo>
        <far>boor</far>
      </args>
     ...
   </buildArgs>
-</configuration>  
+</configuration>
 ```
 
 This will add `--build-arg foo=bar` and `--build-arg far=boor` to the docker-compose build call.

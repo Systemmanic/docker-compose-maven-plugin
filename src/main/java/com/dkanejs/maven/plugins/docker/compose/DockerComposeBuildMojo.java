@@ -13,48 +13,48 @@ import java.util.List;
 @Mojo(name = "build", threadSafe = true)
 public class DockerComposeBuildMojo extends AbstractDockerComposeMojo {
 
-	public void execute() throws MojoExecutionException {
+    public void execute() throws MojoExecutionException {
 
-		if (skip) {
-			getLog().info("Skipping execution");
-			return;
-		}
+        if (skip) {
+            getLog().info("Skipping execution");
+            return;
+        }
 
-		final List<String> args = new ArrayList<>();
+        final List<String> args = new ArrayList<>();
 
-		args.add(Command.BUILD.getValue());
-
-
-		if (buildArgs.forceRm) {
-			getLog().info("Always remove intermediate containers.");
-			args.add("--force-rm");
-		}
+        args.add(Command.BUILD.getValue());
 
 
-		if (buildArgs.noCache) {
-			getLog().info("Do not use cache when building the image.");
-			args.add("--no-cache");
-		}
-
-		if (buildArgs.alwaysPull) {
-			getLog().info("Always attempt to pull a newer version of the image.");
-			args.add("--pull");
-		}
-
-		if(buildArgs.args != null && buildArgs.args.isEmpty() == false) {
-			getLog().info("Adding build args");
-			buildArgs.args.forEach((key,value) -> {
-				args.add("--build-arg");
-			    args.add(key+"="+value);
-			});
-		}
-
-		if (services != null && !services.isEmpty()) {
-			args.addAll(services);
-		}
+        if (buildArgs.forceRm) {
+            getLog().info("Always remove intermediate containers.");
+            args.add("--force-rm");
+        }
 
 
-		super.execute(args);
-	}
+        if (buildArgs.noCache) {
+            getLog().info("Do not use cache when building the image.");
+            args.add("--no-cache");
+        }
+
+        if (buildArgs.alwaysPull) {
+            getLog().info("Always attempt to pull a newer version of the image.");
+            args.add("--pull");
+        }
+
+        if (buildArgs.args != null && !buildArgs.args.isEmpty()) {
+            getLog().info("Adding build args");
+            buildArgs.args.forEach((key, value) -> {
+                args.add("--build-arg");
+                args.add(key + "=" + value);
+            });
+        }
+
+        if (services != null && !services.isEmpty()) {
+            args.addAll(services);
+        }
+
+
+        super.execute(args);
+    }
 
 }

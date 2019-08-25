@@ -14,22 +14,22 @@ import java.util.List;
 @Mojo(name = "pull", threadSafe = true)
 public class DockerComposePullMojo extends AbstractDockerComposeMojo {
 
-	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException {
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
 
-		if (skip) {
-			getLog().info("Skipping execution");
-			return;
-		}
+        if (skip) {
+            getLog().info("Skipping execution");
+            return;
+        }
 
-		List<String> args = new ArrayList<>();
-		args.add(Command.PULL.getValue());
+        List<String> args = new ArrayList<>();
+        args.add(Command.PULL.getValue());
 
-		if (ignorePullFailures) {
-			getLog().info("Ignore pull failures");
-			args.add("--ignore-pull-failures");
-		}
+        if (ignorePullFailures) {
+            getLog().info("Ignore pull failures");
+            args.add("--ignore-pull-failures");
+        }
 
-		super.execute(args);
-	}
+        super.execute(args);
+    }
 }
