@@ -260,8 +260,8 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
         UP("up"),
         DOWN("down"),
         PULL("pull"),
-        BUILD("build"),
-        PUSH("push");
+        PUSH("push"),
+        BUILD("build");
 
         @SuppressWarnings("unused")
         private String value;
