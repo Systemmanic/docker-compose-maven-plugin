@@ -1,6 +1,0 @@
-language: java
-
-services:
-  - docker
-
-script: mvn -B -P integration-tests clean test verify
