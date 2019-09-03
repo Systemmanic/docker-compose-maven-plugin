@@ -1,6 +1,6 @@
 version: '3.2'
 services:
   test:
-    image: busybox
+    image: thisimagedoesnotexist
     container_name: mpdc-it-pull-ignore-failures
     command: sleep 600
