@@ -27,6 +27,8 @@ This plugin is designed to be light, fast and with minimum dependencies (only th
 * build - runs `docker-compose build`
 * push - runs `docker-compose push`
 * pull - runs `docker-compose pull`
+* stop - runs `docker-compose stop`
+* restart - runs `docker-compose restart`
 
 ### Properties
 #### composeFile

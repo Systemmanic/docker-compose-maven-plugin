@@ -140,7 +140,6 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     @Parameter(property = "dockerCompose.awaitTimeout", defaultValue = "30")
     int awaitTimeout;
 
-
     /**
      * Ignore pull failures
      */
@@ -259,9 +258,11 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     enum Command {
         UP("up"),
         DOWN("down"),
+        STOP("stop"),
         PULL("pull"),
         PUSH("push"),
-        BUILD("build");
+        BUILD("build"),
+        RESTART("restart");
 
         @SuppressWarnings("unused")
         private String value;
