@@ -1,0 +1,6 @@
+version: '3.2'
+services:
+  test:
+    image: busybox
+    container_name: mpdc-it-restart
+    command: sleep 600

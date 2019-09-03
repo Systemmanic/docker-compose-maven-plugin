@@ -10,20 +10,20 @@ import java.util.List;
 @Mojo(name = "stop", threadSafe = true)
 public class DockerComposeStopMojo extends AbstractDockerComposeMojo {
 
-	public void execute() throws MojoExecutionException {
+    public void execute() throws MojoExecutionException {
 
-		if (skip) {
-			getLog().info("Skipping execution");
-			return;
-		}
+        if (skip) {
+            getLog().info("Skipping execution");
+            return;
+        }
 
-		List<String> args = new ArrayList<>();
+        List<String> args = new ArrayList<>();
 
-		args.add(Command.STOP.getValue());
-		
-		if (services != null && !services.isEmpty())
-			args.addAll(services);
+        args.add(Command.STOP.getValue());
 
-		super.execute(args);
-	}
+        if (services != null && !services.isEmpty())
+            args.addAll(services);
+
+        super.execute(args);
+    }
 }

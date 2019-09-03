@@ -10,20 +10,20 @@ import java.util.List;
 @Mojo(name = "restart", threadSafe = true)
 public class DockerComposeRestartMojo extends AbstractDockerComposeMojo {
 
-	public void execute() throws MojoExecutionException {
+    public void execute() throws MojoExecutionException {
 
-		if (skip) {
-			getLog().info("Skipping execution");
-			return;
-		}
+        if (skip) {
+            getLog().info("Skipping execution");
+            return;
+        }
 
-		List<String> args = new ArrayList<>();
+        List<String> args = new ArrayList<>();
 
-		args.add(Command.RESTART.getValue());
-		
-		if (services != null && !services.isEmpty())
-			args.addAll(services);
+        args.add(Command.RESTART.getValue());
 
-		super.execute(args);
-	}
+        if (services != null && !services.isEmpty())
+            args.addAll(services);
+
+        super.execute(args);
+    }
 }
