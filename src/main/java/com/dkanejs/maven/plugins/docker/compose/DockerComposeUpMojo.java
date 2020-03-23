@@ -39,6 +39,10 @@ public class DockerComposeUpMojo extends AbstractDockerComposeMojo {
         if (services != null && !services.isEmpty())
             args.addAll(services);
 
+        if (upAdditionalParameters != null && !upAdditionalParameters.isEmpty()) {
+            getLog().info("Add additionnal parameters");
+            args.addAll(upAdditionalParameters);
+        }
         super.execute(args);
 
         if (awaitCmd != null) {

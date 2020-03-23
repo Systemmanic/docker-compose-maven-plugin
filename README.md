@@ -162,6 +162,25 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
+#### upAdditionalParameters
+Additional parameters used when executing `docker-compose up` command.
+
+```xml
+<configuration>
+    <upAdditionalParameters>--some-parameter</upAdditionalParameters>
+</configuration>
+```
+
+
+#### downAdditionalParameters
+Additional parameters used when executing `docker-compose down` command.
+
+```xml
+<configuration>
+    <downAdditionalParameters>--some-parameter</downAdditionalParameters>
+</configuration>
+```
+
 #### apiVersion
 `apiVersion` - Specify compose API version
 ```xml

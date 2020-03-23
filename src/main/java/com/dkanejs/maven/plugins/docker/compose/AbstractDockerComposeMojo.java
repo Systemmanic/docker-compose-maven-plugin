@@ -51,6 +51,18 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     String removeImagesType;
 
     /**
+     * Additional parameters used when executing docker-compose up.
+     */
+    @Parameter(property = "dockerCompose.upAdditionalParameters")
+    protected List<String> upAdditionalParameters;
+
+    /**
+     * Additional parameters used when executing docker-compose down.
+     */
+    @Parameter(property = "dockerCompose.downAdditionalParameters")
+    protected List<String> downAdditionalParameters;
+
+    /**
      * Run in detached mode
      */
     @Parameter(defaultValue = "false", property = "dockerCompose.detached")

@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  test-1:
+    image: busybox
+    container_name: mpdc-it-up-additional-parameter
+    command: echo -e Docker Compose has run successfully
+
+  test-2:
+    image: busybox
+    container_name: mpdc-it-to-close
+    command: echo -e Docker Compose has run successfully
