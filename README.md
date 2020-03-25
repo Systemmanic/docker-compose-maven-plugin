@@ -100,7 +100,7 @@ This can be configured in the configuration section of the plugin:
     <services>
         <service>service-1</composeFile>
         <service>service-2</composeFile>
-    </composeFiles>
+    </services>
 </configuration>
 ```
 The following example will only start services: `test-1` and `test-2`:
@@ -110,7 +110,7 @@ The following example will only start services: `test-1` and `test-2`:
     <services>
         <service>test-1</composeFile>
         <service>test-2</composeFile>
-    </composeFiles>
+    </services>
 </configuration>
 ```
 
