@@ -28,6 +28,7 @@ public class DockerComposePullMojo extends AbstractDockerComposeMojo {
         if (ignorePullFailures) {
             getLog().info("Ignore pull failures");
             args.add("--ignore-pull-failures");
+            args.add("--no-parallel");
         }
 
         super.execute(args);
