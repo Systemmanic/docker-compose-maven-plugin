@@ -5,7 +5,7 @@
 
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
-    <version>3.0.1</version>
+    <version>4.0.0</version>
 
     <packaging>maven-plugin</packaging>
 
@@ -13,13 +13,30 @@
     <description>Maven plugin for docker-compose</description>
     <url>https://github.com/dkanejs/docker-compose-maven-plugin</url>
 
+    <organization>
+        <name>dkanejs</name>
+        <url>https://github.com/dkanejs</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>David Kane</name>
+            <email>dkanejs@gmail.com</email>
+            <roles>
+                <role>Lead Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <licenses>
         <license>
-            <name>The GNU Lesser General Public License, Version 3.0</name>
-            <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <inceptionYear>2020</inceptionYear>
 
     <scm>
         <connection>scm:git:ssh://git@github.com:dkanejs/docker-compose-maven-plugin.git</connection>
@@ -45,18 +62,18 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>3.5.2</version>
+            <version>3.6.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.5.1</version>
+            <version>3.6.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>3.1.0</version>
+            <version>3.3.0</version>
         </dependency>
     </dependencies>
 
@@ -229,13 +246,4 @@
             </build>
         </profile>
     </profiles>
-
-    <developers>
-        <developer>
-            <id>dkanejs</id>
-            <email>dkanejs@gmail.com</email>
-            <name>David Kane</name>
-        </developer>
-    </developers>
-
 </project>
