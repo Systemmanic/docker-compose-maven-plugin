@@ -5,7 +5,7 @@
 
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
 
     <packaging>maven-plugin</packaging>
 
