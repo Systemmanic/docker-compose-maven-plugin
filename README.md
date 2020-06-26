@@ -202,6 +202,14 @@ This can be changed in the configuration section of the plugin:
 </configuration>
 ```
 
+#### cliArgs
+`cliArgs` - define custom commandline arguments
+```xml
+<configuration>
+    <cliArgs>--tlsverify</cliArgs>
+</configuration>
+```
+
 #### build
 `build` - Build images before starting containers
 
