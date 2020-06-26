@@ -87,6 +87,12 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
     protected List<String> services;
 
     /**
+     * Custom cli arguments for docker compose
+     */
+    @Parameter(property = "dockerCompose.cliArgs")
+    private String cliArgs;
+
+    /**
      * The Compose Api Version
      */
     @Parameter(property = "dockerCompose.apiVersion")
@@ -212,6 +218,10 @@ abstract class AbstractDockerComposeMojo extends AbstractMojo {
         if (host != null) {
             cmd.add("-H");
             cmd.add(host);
+        }
+
+        if (cliArgs != null) {
+            cmd.add(cliArgs);
         }
 
         if (projectName != null) {
