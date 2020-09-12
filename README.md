@@ -5,11 +5,11 @@
 Available on Maven Central.
 
 ```xml
-<dependency>
+<plugin>
     <groupId>com.dkanejs.maven.plugins</groupId>
     <artifactId>docker-compose-maven-plugin</artifactId>
     <version>$VERSION</version>
-</dependency>
+</plugin>
 ```
 
 ## About
