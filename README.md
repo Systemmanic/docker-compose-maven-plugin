@@ -108,8 +108,8 @@ The following example will only start services: `test-1` and `test-2`:
 ```xml
 <configuration>
     <services>
-        <service>test-1</composeFile>
-        <service>test-2</composeFile>
+        <service>test-1</service>
+        <service>test-2</service>
     </services>
 </configuration>
 ```
